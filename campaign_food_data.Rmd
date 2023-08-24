@@ -25,12 +25,8 @@ library(ipumsr)
 - Years filtered for: 2011 to today
 - States filtered fsor: DC, MD, VA
 - Search terms I used in the FEC.gov site.
-  - MEALS, CATERING, FOOD, FOOD/BEVERAGE, FOOD AND BEVERAGE EXPENSES, CATERING EVENTS, CATERING FOOD AND BEVERAGES, DRINKS/FOOD (PRODUCED 213,860 RESULTS)
-    -LINK: https://www.fec.gov/data/disbursements/?data_type=processed&two_year_transaction_period=2012&two_year_transaction_period=2014&two_year_transaction_period=2016&two_year_transaction_period=2018&two_year_transaction_period=2020&two_year_transaction_period=2022&two_year_transaction_period=2024&min_date=01%2F01%2F2011&max_date=12%2F31%2F2021&recipient_state=DC&recipient_state=MD&recipient_state=VA&disbursement_description=FOOD&disbursement_description=MEALS&disbursement_description=CATERING&disbursement_description=FOOD%2FBEVERAGE&disbursement_description=FOOD+AND+BEVERAGE+EXPENSES&disbursement_description=CATERING+EVENTS&disbursement_description=CATERING+FOOD+AND+BEVERAGES&disbursement_description=CATERING%2FEVENTS&disbursement_description=DRINKS%2FFOOD
-  
-  
-  
-  - Use single words. not phrases
+  - food, drinks, meals, catering, dining, beverage, meeting, events (produced a dataset with 274,352 results)
+  - Link: https://www.fec.gov/data/disbursements/?data_type=processed&two_year_transaction_period=2012&two_year_transaction_period=2014&two_year_transaction_period=2016&two_year_transaction_period=2018&two_year_transaction_period=2020&two_year_transaction_period=2022&two_year_transaction_period=2024&min_date=01%2F01%2F2011&max_date=12%2F31%2F2024&recipient_state=DC&recipient_state=MD&recipient_state=VA&disbursement_description=FOOD&disbursement_description=DRINKS&disbursement_description=MEALS&disbursement_description=CATERING&disbursement_description=DINING&disbursement_description=BEVERAGE&disbursement_description=MEETING&disbursement_description=EVENTS
   
 
   
@@ -51,16 +47,23 @@ head(campaign_food_data)
 ** I put in 7 filters to the FEC site with the above link. Shouldn't then there only be 7 categories that show up? **
 
 ```{r}
+#counts for categories
 campaign_food_data %>% 
 group_by(disbursement_description) %>% 
 count() %>% 
 arrange(desc(n))
 
+#recipient totals
 campaign_food_data %>% 
 group_by(recipient_name, recipient_state) %>% 
 summarize(total_spent = sum(disbursement_amount)) %>% 
 arrange(desc(total_spent))
 
+#state totals
+campaign_food_data %>% 
+group_by(recipient_state) %>% 
+summarize(total_spent = sum(disbursement_amount)) %>% 
+arrange(desc(total_spent))
 
 
 ```
