@@ -64,15 +64,23 @@ campaign_food_data %>%
 group_by(recipient_state) %>% 
 summarize(total_spent = sum(disbursement_amount)) %>% 
 arrange(desc(total_spent))
+#why is DC not showing up?
 
 
 ```
 
-** Need to use Open Refine to standardize some of the disbursement_descriptions
+** Should I use Open Refine to standardize some of the disbursement_descriptions
 List of ones to standardist: FOOD AND BEVERAGE, FOOD & BEVERAGE, FOOD/BEVERAGES, FOOD / BEVERAGES, FOOD AND MEALS, FOOD & BEV, FOOD AND BEVERAGE EXPENSE
 
 ** RESTURANT MEALS IS A GOOD ONE TO HONE IN ON **
 
+
+```{r}
+
+
+
+
+```
 
 
 
