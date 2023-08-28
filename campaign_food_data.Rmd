@@ -60,12 +60,29 @@ summarize(total_spent = sum(disbursement_amount)) %>%
 arrange(desc(total_spent))
 
 #state totals
-#state_totals <-  
-campaign_food_data %>% 
+state_totals <-  campaign_food_data %>% 
 group_by(recipient_state) %>% 
 summarize(total_spent = sum(disbursement_amount)) %>% 
 arrange(desc(total_spent))
 #why is DC not showing up?
+#Look for the NAs in the dataset
+
+#use this block to try and filter for the NAs
+campaign_food_data <- campaign_food_data %>% 
+filter(!is.na(disbursement_amount))
+#omitted image_number: 12020611921 becasue it showed up as a NA and FEC site said it was $0 anyway.
+```
+
+
+```{r}
+#trying to see how many transactions there are in the years, based on the quater of the year?
+
+#Then try to find out how much money was spent in that quarter
+#Try to set up the columns: YEAR, QUARTER, NO. OF TRANSACTIONS, Q_TOTAL
+
+
+
+
 
 
 ```
