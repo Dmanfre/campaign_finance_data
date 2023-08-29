@@ -87,13 +87,24 @@ count() %>%
 arrange(desc(n))
 #2018 had most transactions
 
-#Which Quarter of 2018 had most
-2018_quarters <-  campaign_food_data %>%
-  filter(report_year == "2018", 
-         report_type %in% c("Q1", "Q2", "Q3", "Q4"))
-#Create a month and year column from the date column. 
+#Showing which month was the most money spent
+month_totals <- campaign_food_data %>% 
+  mutate(month = floor_date(disbursement_date, "month")) %>% 
+  group_by(month) %>% 
+  summarise(total_amount = sum(disbursement_amount)) %>% 
+  arrange(desc(total_amount))
+# Nov. 2016 was when the msot money was spent... Trump was elected in this month. 
+# Lots spent here for a few reasons: final stretch of campaigning,
+# Nov doesnt appear again until No. 27 at Nov. 2018
 
+# This codeblock is trying to filter and show the totals for all of Novembers. 
 
+nov_totals <- campaign_food_data %>% 
+  mutate(month = floor_date(disbursement_date, "month")) %>% 
+  group_by(month) %>% 
+  summarise(total_amount = sum(disbursement_amount)) %>% 
+  filter(month(month) == 11) %>% 
+  arrange(desc(total_amount))
 
 
 
