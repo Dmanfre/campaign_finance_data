@@ -159,6 +159,20 @@ filter(purpose == "FOOD AND BEV")
 new_food_data %>% 
 filter(purpose == "MEALS")
 
+new_food_data %>% 
+  filter(purpose == "FOOD")
+
+new_food_data %>% 
+  filter(purpose == "EVENT FOOD")
+
+new_food_data %>% 
+filter(purpose == "DINING EXPENSE")
+
+new_food_data %>% 
+filter(purpose == "FOOD AND BEVERAGE") #Keep this one and combine it with "FOOD AND BEV"
+
+
+
 ```
 
 
