@@ -80,6 +80,19 @@ filter(!is.na(disbursement_amount))
 #Then try to find out how much money was spent in that quarter
 #Try to set up the columns: YEAR, QUARTER, NO. OF TRANSACTIONS, Q_TOTAL
 
+#Which year had the most transactions
+year_totals <-campaign_food_data %>% 
+group_by(report_year) %>% 
+count() %>%
+arrange(desc(n))
+#2018 had most transactions
+
+#Which Quarter of 2018 had most
+2018_quarters <-  campaign_food_data %>%
+  filter(report_year == "2018", 
+         report_type %in% c("Q1", "Q2", "Q3", "Q4"))
+#Create a month and year column from the date column. 
+
 
 
 
