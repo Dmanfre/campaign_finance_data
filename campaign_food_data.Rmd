@@ -73,7 +73,6 @@ filter(!is.na(disbursement_amount))
 #omitted image_number: 12020611921 becasue it showed up as a NA and FEC site said it was $0 anyway.
 ```
 
-
 ```{r}
 #trying to see how many transactions there are in the years, based on the quater of the year?
 
@@ -106,9 +105,6 @@ nov_totals <- campaign_food_data %>%
   filter(month(month) == 11) %>% 
   arrange(desc(total_amount))
 
-
-
-
 ```
 
 ** Should I use Open Refine to standardize some of the disbursement_descriptions
@@ -118,6 +114,9 @@ List of ones to standardist: FOOD AND BEVERAGE, FOOD & BEVERAGE, FOOD/BEVERAGES,
 
 
 ```{r}
+#exporting the CSV for Derek on Aug. 28
+
+write_csv(campaign_food_data, "data/campaign_food_data10.28.csv")
 
 
 
