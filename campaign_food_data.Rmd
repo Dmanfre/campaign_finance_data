@@ -113,6 +113,10 @@ List of ones to standardist: FOOD AND BEVERAGE, FOOD & BEVERAGE, FOOD/BEVERAGES,
 ** RESTURANT MEALS IS A GOOD ONE TO HONE IN ON **
 
 
+
+
+*** Generating new data from the Bulk Downloads section of FEC.gov ***
+
 ```{r}
 #exporting the CSV for Derek on Aug. 28
 
@@ -125,20 +129,37 @@ write_csv(campaign_food_data, "data/campaign_food_data10.28.csv")
 
 column_names <- c("CMTE_ID", "AMNDT_IND", "REPORT_YEAR", "REPORT_TYPE", "IMAGE_NUM", "LINE_NUM", "FORM_TP_CD", "SCHED_TP_CD", "NAME", "CITY", "STATE", "ZIP_CODE", "DISBURSEMENT_DATE", "DISBURSEMENT_AMOUNT", "TRANSACTION_PGI", "PURPOSE", "CATEGORY", "CATEGORY_DESC", "MEMO_CD", "MEMO_TEXT", "ENTITY_TP", "SUB_ID", "FILE_NUM", "TRAN_ID", "BACK_REF_TRAN_ID")  # Add your column names here
 
-
-
 new_food_data <- read_delim("~/Downloads/oppexp.txt", delim = "|", col_names = column_names)
 
-# Assuming 'your_data_frame' is the name of your data frame
+# making the column names lower case
 colnames(new_food_data) <- tolower(colnames(new_food_data))
 
-#need to convert disbursement_date into a date field
+#need to convert disbursement_date into a date field yyyy-mm-dd
 #need to convert the zipcodes into a 5-digit field.
-#testing
+
 
 
 ```
 
+
+
+use strings and then test them all togeter
+
+```{r}
+
+new_category_totals <- new_food_data %>% 
+group_by(purpose) %>% 
+count() %>% 
+arrange(desc(n))
+
+
+new_food_data %>% 
+filter(purpose == "FOOD AND BEV")
+
+new_food_data %>% 
+filter(purpose == "MEALS")
+
+```
 
 
 
