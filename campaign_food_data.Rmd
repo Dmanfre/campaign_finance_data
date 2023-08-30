@@ -125,7 +125,9 @@ write_csv(campaign_food_data, "data/campaign_food_data10.28.csv")
 ```
 
 
-*** NOTE: THIS IS ONLY 2015-2016 DATA HERE *****
+*** MAJOR NOTE: THIS IS ONLY 2015-2016 DATA HERE *****
+
+We will need to gather the other years data too I believe. 
 
 
 ```{r}
@@ -173,12 +175,25 @@ filter(purpose == "DINING EXPENSE")
 new_food_data %>% 
 filter(purpose == "FOOD AND BEVERAGE") #Keep this one and combine it with "FOOD AND BEV"
 
+
 #Using the filter with str_detects here
 new_food_data %>% 
 filter(str_detect(purpose, "FOOD"))
 
 new_food_data %>% 
 filter(str_detect(purpose, "BEVERAGE"))
+
+new_food_data %>% 
+filter(str_detect(purpose, "DINING EXPENSE"))
+
+new_food_data %>% 
+filter(str_detect(purpose, "MEALS"))
+
+new_food_data %>% 
+filter(str_detect(purpose, "CATERING"))
+
+
+
 ```
 
 
