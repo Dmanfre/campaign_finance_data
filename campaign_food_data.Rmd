@@ -223,18 +223,16 @@ new_food_data %>%
 
 
 
-
-
-
 ```{r}
 # Next step is to save the purpose terms to a search_terms variable.
 search_terms <- c("FOOD", "BEVERAGE", "DINING", "MEALS", "CATERING", "DRINKS", "EVENTS")
 
-#filtered_data <- 
-  
-  new_food_data %>%
+dmv_foods_1516 <-  new_food_data %>%
   filter(str_detect(purpose, str_c(search_terms, collapse = "|")))
   #This matches the other method of using filter and str_detects and produces the same 44,057 rows. 
+
+
+
 
 
 
