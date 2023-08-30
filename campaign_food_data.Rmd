@@ -247,3 +247,23 @@ head()
 
 My thought is to use open refine after I am done importing/filtering every spreadsheet. ***
 
+
+```{r}
+#Seeing how many individuals there are.
+#Does this affect what we do becuase we want to look at organizations rather than individual people. 
+
+ dmv_foods_1516 %>%
+  filter(entity_tp == "IND") %>% 
+  group_by(name) %>% 
+  summarise(total_amount = sum(disbursement_amount)) %>%
+  arrange(desc(total_amount))
+
+ dmv_foods_1516 %>%
+  filter(entity_tp == "ORG") %>% 
+  group_by(name) %>% 
+  summarise(total_amount = sum(disbursement_amount)) %>%
+  arrange(desc(total_amount))
+
+```
+
+
