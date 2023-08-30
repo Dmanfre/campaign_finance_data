@@ -181,7 +181,7 @@ filter(str_detect(purpose, "BEVERAGE"))
 
 ```{r}
 # Next step is to save the purpose terms to a search_terms variable.
-search_terms <- c("FOOD", "search_term2", "search_term3")
+search_terms <- c("FOOD", "BEVERAGE", "MEALS", "EVENT", "DINING", "CATERING", "EVENTS")
 
 filtered_data <- your_data_frame %>%
   filter(str_detect(purpose, str_c(search_terms, collapse = "|")))
