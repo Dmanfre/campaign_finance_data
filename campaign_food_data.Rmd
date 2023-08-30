@@ -229,16 +229,14 @@ search_terms <- c("FOOD", "BEVERAGE", "DINING", "MEALS", "CATERING", "DRINKS", "
 
 dmv_foods_1516 <-  new_food_data %>%
   filter(str_detect(purpose, str_c(search_terms, collapse = "|")))
-  #This matches the other method of using filter and str_detects and produces the same 44,057 rows. 
-
-
-
-
-
-
-
+  #This matches the other method of using filter and str_detects and produces the same 44,057 rows.
 ```
 
 
+```{r}
+
+dmv_foods_1516 %>% 
+head()
 
 
+```
