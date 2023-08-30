@@ -143,6 +143,9 @@ colnames(new_food_data) <- tolower(colnames(new_food_data))
 #need to convert the zipcodes into a 5-digit field.
 
 
+new_food_data <- new_food_data %>% 
+filter(state == "DC"| state == "MD" | state == "VA")
+
 
 ```
 
@@ -176,6 +179,8 @@ new_food_data %>%
 filter(purpose == "FOOD AND BEVERAGE") #Keep this one and combine it with "FOOD AND BEV"
 
 
+
+
 #Using the filter with str_detects here
 new_food_data %>% 
 filter(str_detect(purpose, "FOOD"))
@@ -184,7 +189,7 @@ new_food_data %>%
 filter(str_detect(purpose, "BEVERAGE"))
 
 new_food_data %>% 
-filter(str_detect(purpose, "DINING EXPENSE"))
+filter(str_detect(purpose, "DINING"))
 
 new_food_data %>% 
 filter(str_detect(purpose, "MEALS"))
@@ -192,9 +197,33 @@ filter(str_detect(purpose, "MEALS"))
 new_food_data %>% 
 filter(str_detect(purpose, "CATERING"))
 
+new_food_data %>% 
+filter(str_detect(purpose, "DRINKS"))
+
+new_food_data %>% 
+filter(str_detect(purpose, "EVENTS"))
+
+
+# filter(str_detect the terms to dmv_food when I am ready)
+# and do it like this 
+
+new_food_data %>%
+  filter(str_detect(purpose, "FOOD") | 
+         str_detect(purpose, "BEVERAGE") | 
+         str_detect(purpose, "DINING") |
+        str_detect(purpose, "MEALS") |
+        str_detect(purpose, "CATERING")| 
+        str_detect(purpose, "DRINKS")|
+        str_detect(purpose, "EVENTS"))
+#This procudes a tibble with 44,057 rows. 
+
 
 
 ```
+
+
+
+
 
 
 ```{r}
