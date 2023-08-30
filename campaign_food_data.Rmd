@@ -146,7 +146,6 @@ colnames(new_food_data) <- tolower(colnames(new_food_data))
 use strings and then test them all togeter
 
 ```{r}
-
 new_category_totals <- new_food_data %>% 
 group_by(purpose) %>% 
 count() %>% 
@@ -170,6 +169,23 @@ filter(purpose == "DINING EXPENSE")
 
 new_food_data %>% 
 filter(purpose == "FOOD AND BEVERAGE") #Keep this one and combine it with "FOOD AND BEV"
+
+#Using the filter with str_detects here
+new_food_data %>% 
+filter(str_detect(purpose, "FOOD"))
+
+new_food_data %>% 
+filter(str_detect(purpose, "BEVERAGE"))
+```
+
+
+```{r}
+# Next step is to save the purpose terms to a search_terms variable.
+search_terms <- c("FOOD", "search_term2", "search_term3")
+
+filtered_data <- your_data_frame %>%
+  filter(str_detect(purpose, str_c(search_terms, collapse = "|")))
+
 
 
 
