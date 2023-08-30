@@ -235,8 +235,15 @@ dmv_foods_1516 <-  new_food_data %>%
 
 ```{r}
 
+#making the date column correct
+dmv_foods_1516 <- dmv_foods_1516 %>%  mutate(disbursement_date=mdy(disbursement_date))
+
 dmv_foods_1516 %>% 
 head()
 
-
 ```
+
+*** Is the next step from here, importing the other years and repeating the same process? Or do I use open refine on this dataset? 
+
+My thought is to use open refine after I am done importing/filtering every spreadsheet. ***
+
