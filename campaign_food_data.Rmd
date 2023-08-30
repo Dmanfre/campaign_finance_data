@@ -125,6 +125,9 @@ write_csv(campaign_food_data, "data/campaign_food_data10.28.csv")
 ```
 
 
+*** NOTE: THIS IS ONLY 2015-2016 DATA HERE *****
+
+
 ```{r}
 
 column_names <- c("CMTE_ID", "AMNDT_IND", "REPORT_YEAR", "REPORT_TYPE", "IMAGE_NUM", "LINE_NUM", "FORM_TP_CD", "SCHED_TP_CD", "NAME", "CITY", "STATE", "ZIP_CODE", "DISBURSEMENT_DATE", "DISBURSEMENT_AMOUNT", "TRANSACTION_PGI", "PURPOSE", "CATEGORY", "CATEGORY_DESC", "MEMO_CD", "MEMO_TEXT", "ENTITY_TP", "SUB_ID", "FILE_NUM", "TRAN_ID", "BACK_REF_TRAN_ID")  # Add your column names here
