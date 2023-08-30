@@ -211,10 +211,10 @@ new_food_data %>%
   filter(str_detect(purpose, "FOOD") | 
          str_detect(purpose, "BEVERAGE") | 
          str_detect(purpose, "DINING") |
-        str_detect(purpose, "MEALS") |
+        str_detect(purpose, "MEAL") |
         str_detect(purpose, "CATERING")| 
-        str_detect(purpose, "DRINKS")|
-        str_detect(purpose, "EVENTS"))
+        str_detect(purpose, "DRINK")|
+        str_detect(purpose, "EVENT"))
 #This procudes a tibble with 44,057 rows. 
 
 
@@ -225,7 +225,7 @@ new_food_data %>%
 
 ```{r}
 # Next step is to save the purpose terms to a search_terms variable.
-search_terms <- c("FOOD", "BEVERAGE", "DINING", "MEALS", "CATERING", "DRINKS", "EVENTS")
+search_terms <- c("FOOD", "BEVERAGE", "DINING", "MEAL", "CATERING", "DRINK", "EVENT")
 
 dmv_foods_1516 <-  new_food_data %>%
   filter(str_detect(purpose, str_c(search_terms, collapse = "|")))
@@ -266,4 +266,22 @@ My thought is to use open refine after I am done importing/filtering every sprea
 
 ```
 
+
+*** Next step is to import the other years' data sets and then run the same process with the same search terms. ***
+
+*** When I have a fuller dataset before using open refine, I should get rid of the individuals to only keep the ORG ***
+
+*** NEXT STEPS ***
+- Import dataset
+- Change column names
+- Change date field
+- put search terms into the str_detect
+- Check FEC site to make sure the number of rows in R is similar to what the FEC shows for that year.
+
+```{r}
+
+
+
+
+```
 
