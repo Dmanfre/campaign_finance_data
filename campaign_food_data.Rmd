@@ -313,8 +313,8 @@ colnames(dmv_foods21_22) <- tolower(colnames(dmv_foods21_22))
 
 #filtering for DC, MD, VA
 dmv_foods21_22 <- dmv_foods21_22 %>% 
-filter(state == "DC"| state == "MD" | state == "VA")
-#Why is recipient_state not found here?
+filter(recipient_state == "DC"| recipient_state == "MD" | recipient_state == "VA")
+
 
 #establishing a date column
 dmv_foods21_22 <- dmv_foods21_22%>%  mutate(disbursement_date=mdy(disbursement_date))
@@ -348,7 +348,7 @@ dmv_foods21_22 %>%
         str_detect(disbursement_description, "EVENT"))
 #This procudes a tibble with 11,494 rows. 
 
-#check this disbursement. 
+
 
 
 ```
