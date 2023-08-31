@@ -280,8 +280,10 @@ My thought is to use open refine after I am done importing/filtering every sprea
 
 ```{r}
 
+dmv_foods22_23 <- read_delim("~/Downloads/oppexp-2.txt", delim = "|", col_names = column_names)
 
-
+dmv_foods22_23 %>% 
+head()
 
 ```
 
