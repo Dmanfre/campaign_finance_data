@@ -282,12 +282,33 @@ My thought is to use open refine after I am done importing/filtering every sprea
 - Check FEC site to make sure the number of rows in R is similar to what the FEC shows for that year.
 
 ```{r}
-
+#Loading 22-23
 dmv_foods22_23 <- read_delim("~/Downloads/oppexp-2.txt", delim = "|", col_names = column_names)
 
 dmv_foods22_23 %>% 
 head()
+```
 
+```{r}
+
+#establishing column names
+column_names <- c("committee_id", "AMNDT_IND", "report_year", "report_type", "image_number", "line_number", "FORM_TP_CD", "SCHED_TP_CD", "recipient_name", "recipient_city", "recipient_state", "zip_code", "DISBURSEMENT_DATE", "DISBURSEMENT_AMOUNT", "TRANSACTION_PGI", "disbursement_description", "CATEGORY", "CATEGORY_DESC", "MEMO_CD", "MEMO_TEXT", "ENTITY_TP", "SUB_ID", "FILE_NUM", "TRAN_ID", "BACK_REF_TRAN_ID")  # Add your column names here
+
+# making the column names lower case
+colnames(dmv_foods22_23) <- tolower(colnames(dmv_foods22_23))
+
+#need to convert disbursement_date into a date field yyyy-mm-dd
+#need to convert the zipcodes into a 5-digit field.
+
+#filtering for DC, MD, VA
+dmv_foods22_23 <- dmv_foods22_23 %>% 
+filter(recipient_state == "DC"| recipient_state == "MD" | recipient_state == "VA")
+
+#establishing a date column
+dmv_foods22_23 <- dmv_foods22_23 %>%  mutate(disbursement_date=mdy(disbursement_date))
+
+dmv_foods22_23 %>% 
+head()
 
 
 
