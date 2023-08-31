@@ -378,7 +378,6 @@ head()
 ```
 
 ```{r}
-
 # making the column names lower case
 colnames(dmv_foods19_20) <- tolower(colnames(dmv_foods19_20))
 
@@ -388,13 +387,18 @@ colnames(dmv_foods19_20) <- tolower(colnames(dmv_foods19_20))
 #filtering for DC, MD, VA
 dmv_foods19_20 <- dmv_foods19_20 %>% 
 filter(recipient_state == "DC"| recipient_state == "MD" | recipient_state == "VA")
+```
 
+
+
+double check this
+```{r}
 #establishing a date column
-dmv_foods19_20 <- dmv_foods19_20%>%  mutate(disbursement_date=mdy(disbursement_date))
+dmv_foods19_20 <- dmv_foods19_20 %>%  mutate(disbursement_date=mdy(disbursement_date))
 
 dmv_foods19_20 %>% 
 head()
-
+#why did disbursement date produce NAs?
 
 ```
 
