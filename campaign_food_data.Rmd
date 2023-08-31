@@ -273,8 +273,10 @@ My thought is to use open refine after I am done importing/filtering every sprea
 
 *** NEXT STEPS ***
 - Import dataset
-- Change column names
-- Change date field
+- Change column names (change them to match the FEC)
+- Lowercase column names
+- Change date field to date
+- Change the zip code column to 5-digits
 - put search terms into the str_detect
 - Check FEC site to make sure the number of rows in R is similar to what the FEC shows for that year.
 
