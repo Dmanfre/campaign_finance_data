@@ -369,9 +369,34 @@ Importing data from 2019-2020
 
 
 ```{r}
+#importing data
+dmv_foods19_20 <- read_delim("~/Downloads/data1920.txt", delim = "|", col_names = column_names)
+
+dmv_foods19_20 %>% 
+head()
 
 ```
 
+```{r}
+
+# making the column names lower case
+colnames(dmv_foods19_20) <- tolower(colnames(dmv_foods19_20))
+
+#need to convert disbursement_date into a date field yyyy-mm-dd
+#need to convert the zipcodes into a 5-digit field.
+
+#filtering for DC, MD, VA
+dmv_foods19_20 <- dmv_foods19_20 %>% 
+filter(recipient_state == "DC"| recipient_state == "MD" | recipient_state == "VA")
+
+#establishing a date column
+dmv_foods19_20 <- dmv_foods19_20%>%  mutate(disbursement_date=mdy(disbursement_date))
+
+dmv_foods19_20 %>% 
+head()
+
+
+```
 
 
 
