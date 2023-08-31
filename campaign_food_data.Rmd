@@ -272,12 +272,12 @@ My thought is to use open refine after I am done importing/filtering every sprea
 *** When I have a fuller dataset before using open refine, I should get rid of the individuals to only keep the ORG ***
 
 *** NEXT STEPS ***
-- Import dataset
-- Change column names (change them to match the FEC) (do this with 15-16 too)
-- Lowercase column names
-- Filter out states that aren't DC, MD, VA (Copy previous code)
-- Change date field to date
-- Change the zip code column to 5-digits
+- Import dataset DONE
+- Change column names (change them to match the FEC) (do this with 15-16 too) DONE
+- Lowercase column names DONE
+- Filter out states that aren't DC, MD, VA (Copy previous code) DONE
+- Change date field to date DONE
+- Change the zip code column to 5-digits 
 - put search terms into the str_detect
 - Check FEC site to make sure the number of rows in R is similar to what the FEC shows for that year.
 
@@ -309,6 +309,16 @@ dmv_foods22_23 <- dmv_foods22_23 %>%  mutate(disbursement_date=mdy(disbursement_
 
 dmv_foods22_23 %>% 
 head()
+
+```
+
+
+```{r}
+#chanign the zip_codes
+
+dmv_foods22_23 %>% 
+
+
 
 
 
