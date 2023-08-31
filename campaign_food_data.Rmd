@@ -273,8 +273,9 @@ My thought is to use open refine after I am done importing/filtering every sprea
 
 *** NEXT STEPS ***
 - Import dataset
-- Change column names (change them to match the FEC)
+- Change column names (change them to match the FEC) (do this with 15-16 too)
 - Lowercase column names
+- Filter out states that aren't DC, MD, VA (Copy previous code)
 - Change date field to date
 - Change the zip code column to 5-digits
 - put search terms into the str_detect
@@ -286,6 +287,9 @@ dmv_foods22_23 <- read_delim("~/Downloads/oppexp-2.txt", delim = "|", col_names 
 
 dmv_foods22_23 %>% 
 head()
+
+
+
 
 ```
 
