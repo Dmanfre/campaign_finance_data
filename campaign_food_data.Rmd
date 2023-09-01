@@ -538,8 +538,8 @@ Importing data from 13-14
 - Change column names (change them to match the FEC) DONE
 - Lowercase column names DONE
 - Filter out states that aren't DC, MD, VA (Copy previous code) 
-- Change date field to date 
-- Change the zip code column to 5-digits  
+- Change date field to date DONE
+- Change the zip code column to 5-digits DONE
 - put search terms into the str_detect 
 - Check FEC site to make sure the number of rows in R is similar to what the FEC shows for that year. 
 
@@ -566,9 +566,53 @@ head()
 
 
 ```{r}
+#filter for only DC, MD, VA
+
+dmv_foods13_14 <- dmv_foods13_14 %>% 
+filter(recipient_state == "DC"| recipient_state == "MD" | recipient_state == "VA")
+
+```
+
+```{r}
+
+#establishing a date column
+dmv_foods13_14 <- dmv_foods13_14 %>%  mutate(disbursement_date=mdy(disbursement_date))
+
+dmv_foods13_14 %>% 
+head()
 
 
+#making zip codes right
+dmv_foods13_14 <- dmv_foods13_14%>% 
+mutate(zip_code = str_sub(zip_code, start=1L, end=5L))
 
+dmv_foods13_14 %>% 
+head()
+
+```
+
+```{r}
+
+dmv_foods13_14 %>%
+  filter(str_detect(disbursement_description, "FOOD") | 
+         str_detect(disbursement_description, "BEVERAGE") | 
+         str_detect(disbursement_description, "DINING") |
+        str_detect(disbursement_description, "MEAL") |
+        str_detect(disbursement_description, "CATERING")| 
+        str_detect(disbursement_description, "DRINK")|
+        str_detect(disbursement_description, "EVENT"))
+#produces a tibble with 47,129 rows
+
+```
+
+```{r}
+
+# Next step is to save the purpose terms to a search_terms variable.
+search_terms <- c("FOOD", "BEVERAGE", "DINING", "MEAL", "CATERING", "DRINK", "EVENT")
+
+dmv_foods13_14 <- dmv_foods13_14 %>%
+  filter(str_detect(disbursement_description, str_c(search_terms, collapse = "|")))
+#matches the filter of 47,129 rows.
 
 ```
 
