@@ -393,7 +393,7 @@ filter(recipient_state == "DC"| recipient_state == "MD" | recipient_state == "VA
 
 
 
-double check this
+double check this: DONE
 ```{r}
 #establishing a date column
 dmv_foods19_20 <- dmv_foods19_20 %>%  mutate(disbursement_date=mdy(disbursement_date))
@@ -404,7 +404,21 @@ head()
 
 ```
 
+```{r}
+
+#making zip codes right
+
+dmv_foods19_20 <- dmv_foods19_20%>% 
+mutate(zip_code = str_sub(zip_code, start=1L, end=5L))
+
+dmv_foods19_20 %>% 
+head()
+```
 
 
+```{r}
+#Putting the search terms into the 19-20 dataframe
 
+
+```
 
