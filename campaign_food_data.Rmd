@@ -527,8 +527,48 @@ search_terms <- c("FOOD", "BEVERAGE", "DINING", "MEAL", "CATERING", "DRINK", "EV
 
 dmv_foods17_18 <- dmv_foods17_18 %>%
   filter(str_detect(disbursement_description, str_c(search_terms, collapse = "|")))
-#matches the filter of 56,735
+#matches the filter of 56,735 rows.
 
 ```
 
+Importing data from 13-14
+
+
+- Import dataset DONE
+- Change column names (change them to match the FEC) DONE
+- Lowercase column names DONE
+- Filter out states that aren't DC, MD, VA (Copy previous code) 
+- Change date field to date 
+- Change the zip code column to 5-digits  
+- put search terms into the str_detect 
+- Check FEC site to make sure the number of rows in R is similar to what the FEC shows for that year. 
+
+
+```{r}
+
+dmv_foods13_14<- read_delim("~/Downloads/data1314.txt", delim = "|", col_names = column_names)
+
+dmv_foods13_14 %>% 
+head()
+
+#establishing column names
+column_names <- c("committee_id", "AMNDT_IND", "report_year", "report_type", "image_number", "line_number", "FORM_TP_CD", "SCHED_TP_CD", "recipient_name", "recipient_city", "recipient_state", "zip_code", "DISBURSEMENT_DATE", "DISBURSEMENT_AMOUNT", "TRANSACTION_PGI", "disbursement_description", "CATEGORY", "CATEGORY_DESC", "MEMO_CD", "MEMO_TEXT", "ENTITY_TP", "SUB_ID", "FILE_NUM", "TRAN_ID", "BACK_REF_TRAN_ID")  # Add your column names here
+
+# making the column names lower case
+colnames(dmv_foods13_14) <- tolower(colnames(dmv_foods13_14))
+
+dmv_foods13_14 %>% 
+head()
+
+
+```
+
+
+
+```{r}
+
+
+
+
+```
 
