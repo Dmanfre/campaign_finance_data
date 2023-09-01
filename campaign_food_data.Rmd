@@ -617,5 +617,94 @@ dmv_foods13_14 <- dmv_foods13_14 %>%
 ```
 
 
+Importing data from 11-12
 
+
+- Import dataset DONE
+- Change column names (change them to match the FEC) DONE
+- Lowercase column names DONE
+- Filter out states that aren't DC, MD, VA (Copy previous code) DONE
+- Change date field to date DONE
+- Change the zip code column to 5-digits DONE 
+- put search terms into the str_detect DONE
+- Check FEC site to make sure the number of rows in R is similar to what the FEC shows for that year. 
+
+
+```{r}
+
+# importing data
+dmv_foods11_12<- read_delim("~/Downloads/data1112.txt", delim = "|", col_names = column_names)
+
+dmv_foods11_12 %>% 
+head()
+
+#establishing column names
+column_names <- c("committee_id", "AMNDT_IND", "report_year", "report_type", "image_number", "line_number", "FORM_TP_CD", "SCHED_TP_CD", "recipient_name", "recipient_city", "recipient_state", "zip_code", "DISBURSEMENT_DATE", "DISBURSEMENT_AMOUNT", "TRANSACTION_PGI", "disbursement_description", "CATEGORY", "CATEGORY_DESC", "MEMO_CD", "MEMO_TEXT", "ENTITY_TP", "SUB_ID", "FILE_NUM", "TRAN_ID", "BACK_REF_TRAN_ID")  # Add your column names here
+
+# making the column names lower case
+colnames(dmv_foods11_12) <- tolower(colnames(dmv_foods11_12))
+
+dmv_foods11_12 %>% 
+head()
+
+
+
+```
+
+
+```{r}
+
+#filter for only DC, MD, VA
+
+dmv_foods11_12 <- dmv_foods11_12 %>% 
+filter(recipient_state == "DC"| recipient_state == "MD" | recipient_state == "VA")
+
+
+```
+
+```{r}
+
+#establishing a date column
+dmv_foods11_12 <- dmv_foods11_12 %>%  mutate(disbursement_date=mdy(disbursement_date))
+
+dmv_foods11_12 %>% 
+head()
+
+
+#making zip codes right
+dmv_foods11_12 <- dmv_foods11_12%>% 
+mutate(zip_code = str_sub(zip_code, start=1L, end=5L))
+
+dmv_foods11_12 %>% 
+head()
+
+```
+
+
+```{r}
+
+dmv_foods11_12 %>%
+  filter(str_detect(disbursement_description, "FOOD") | 
+         str_detect(disbursement_description, "BEVERAGE") | 
+         str_detect(disbursement_description, "DINING") |
+        str_detect(disbursement_description, "MEAL") |
+        str_detect(disbursement_description, "CATERING")| 
+        str_detect(disbursement_description, "DRINK")|
+        str_detect(disbursement_description, "EVENT"))
+#produces a tibble with 42,479 rows
+
+
+
+```
+
+```{r}
+
+# Next step is to save the purpose terms to a search_terms variable.
+search_terms <- c("FOOD", "BEVERAGE", "DINING", "MEAL", "CATERING", "DRINK", "EVENT")
+
+dmv_foods11_12 <- dmv_foods11_12 %>%
+  filter(str_detect(disbursement_description, str_c(search_terms, collapse = "|")))
+#matches the filter of 42,479 rows.
+
+```
 
