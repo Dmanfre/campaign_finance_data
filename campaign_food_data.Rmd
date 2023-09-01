@@ -315,7 +315,6 @@ colnames(dmv_foods21_22) <- tolower(colnames(dmv_foods21_22))
 dmv_foods21_22 <- dmv_foods21_22 %>% 
 filter(recipient_state == "DC"| recipient_state == "MD" | recipient_state == "VA")
 
-
 #establishing a date column
 dmv_foods21_22 <- dmv_foods21_22%>%  mutate(disbursement_date=mdy(disbursement_date))
 
@@ -451,10 +450,42 @@ dmv_foods19_20 <- dmv_foods19_20 %>%
 
 ```
 
+Importing data from 17-28
 
 
+- Import dataset DONE
+- Change column names (change them to match the FEC) DONE
+- Lowercase column names DONE
+- Filter out states that aren't DC, MD, VA (Copy previous code) DONE
+- Change date field to date 
+- Change the zip code column to 5-digits DONE (done for both 22-23 and 15-16) 
+- put search terms into the str_detect 
+- Check FEC site to make sure the number of rows in R is similar to what the FEC shows for that year. 
 
 ```{r}
+
+#importing data
+
+ dmv_foods17_18<- read_delim("~/Downloads/data1718.txt", delim = "|", col_names = column_names)
+
+dmv_foods17_18 %>% 
+head()
+
+#establishing column names
+column_names <- c("committee_id", "AMNDT_IND", "report_year", "report_type", "image_number", "line_number", "FORM_TP_CD", "SCHED_TP_CD", "recipient_name", "recipient_city", "recipient_state", "zip_code", "DISBURSEMENT_DATE", "DISBURSEMENT_AMOUNT", "TRANSACTION_PGI", "disbursement_description", "CATEGORY", "CATEGORY_DESC", "MEMO_CD", "MEMO_TEXT", "ENTITY_TP", "SUB_ID", "FILE_NUM", "TRAN_ID", "BACK_REF_TRAN_ID")  # Add your column names here
+
+# making the column names lower case
+colnames(dmv_foods17_18) <- tolower(colnames(dmv_foods17_18))
+
+dmv_foods17_18 %>% 
+head()
+```
+
+```{r}
+#filter for only DC, MD, VA
+
+dmv_foods17_18 <- dmv_foods17_18 %>% 
+filter(recipient_state == "DC"| recipient_state == "MD" | recipient_state == "VA")
 
 ```
 
