@@ -540,7 +540,7 @@ Importing data from 13-14
 - Filter out states that aren't DC, MD, VA (Copy previous code) 
 - Change date field to date DONE
 - Change the zip code column to 5-digits DONE
-- put search terms into the str_detect 
+- put search terms into the str_detect DONE
 - Check FEC site to make sure the number of rows in R is similar to what the FEC shows for that year. 
 
 
@@ -615,4 +615,7 @@ dmv_foods13_14 <- dmv_foods13_14 %>%
 #matches the filter of 47,129 rows.
 
 ```
+
+
+
 
