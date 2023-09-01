@@ -150,11 +150,6 @@ filter(state == "DC"| state == "MD" | state == "VA")
 ```
 
 
-```{r}
-
-```
-
-
 use strings and then test them all togeter
 
 ```{r}
@@ -707,4 +702,10 @@ dmv_foods11_12 <- dmv_foods11_12 %>%
 #matches the filter of 42,479 rows.
 
 ```
+
+
+
+
+
+
 
