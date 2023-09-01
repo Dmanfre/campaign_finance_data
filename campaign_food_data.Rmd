@@ -459,7 +459,7 @@ Importing data from 17-18
 - Filter out states that aren't DC, MD, VA (Copy previous code) DONE
 - Change date field to date DONE
 - Change the zip code column to 5-digits DONE 
-- put search terms into the str_detect 
+- put search terms into the str_detect DONE
 - Check FEC site to make sure the number of rows in R is similar to what the FEC shows for that year. 
 
 ```{r}
@@ -516,8 +516,18 @@ dmv_foods17_18 %>%
         str_detect(disbursement_description, "CATERING")| 
         str_detect(disbursement_description, "DRINK")|
         str_detect(disbursement_description, "EVENT"))
-#produces a tibble of 56,735
+#produces a tibble with 56,735 rows
 
+```
+
+```{r}
+
+# Next step is to save the purpose terms to a search_terms variable.
+search_terms <- c("FOOD", "BEVERAGE", "DINING", "MEAL", "CATERING", "DRINK", "EVENT")
+
+dmv_foods17_18 <- dmv_foods17_18 %>%
+  filter(str_detect(disbursement_description, str_c(search_terms, collapse = "|")))
+#matches the filter of 56,735
 
 ```
 
