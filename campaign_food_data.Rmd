@@ -717,7 +717,7 @@ dmv_foods11_12 <- dmv_foods11_12 %>%
 
 What I think the next steps should be after Derek looks at the code
 
-1. Derek looks at code and provides comments
+1. Derek looks at code and prov   ides comments
 2. Combine all the datasets to make a master set showing 2011-today.
 3. Add in the committee_id to the list so we can see the committees on the transactions.
 4. Filter out the individuals because we only want to see places of business. 
