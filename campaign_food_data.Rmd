@@ -715,9 +715,21 @@ dmv_foods11_12 <- dmv_foods11_12 %>%
 
 
 
-Should the next step be to combine all the datasets?
+What I think the next steps should be after Derek looks at the code
 
-
+1. Derek looks at code and provides comments
+2. Combine all the datasets to make a master set showing 2011-today.
+3. Add in the committee_id to the list so we can see the committees on the transactions.
+4. Filter out the individuals because we only want to see places of business. 
+5. Use open refine to standardize the business names and make sure they are all correct.
+6. Use some of the code I wrote for the Booker/Wawa piece to gather info about the DMV spending.
+7. Focus on the zip_codes surrounding Centeral/W. Maryland, DC and northern Virginia to establish DMV.
+8. Analyze the important committees as well as the resturants and see what questions arise.
+    - Does this place frequently get politicans outside of the DMV (Check master set)
+    - Is this a well-known place or just for politicans.
+    - Does the House of Reps eat at places the Senate doesn't?
+    - Does Biden factor into this at all?
+9. 
 
 
 
