@@ -40,9 +40,6 @@ search_terms <- c("FOOD", "BEVERAGE", "DINING", "MEAL", "CATERING", "DRINK", "EV
 ```
 
 
-
-
-
 ```{r}
 #2015-2016 data
 
@@ -399,7 +396,6 @@ head()
 
 ```
 
-
 ```{r}
 
 #filter for only DC, MD, VA
@@ -471,7 +467,7 @@ What I think the next steps should be after Derek looks at the code
     - Does the House of Reps eat at places the Senate doesn't?
     - Does Biden factor into this at all?
 
-
+----------------------
 
 General things
 - makes self a readme file (an intro to the project elevator pitch)
@@ -482,11 +478,44 @@ General things
 
 - Next steps are good. Committee master, will load the file. 
 
+-----------------------
 
 Today's steps
 Replace the older stuff, describing what I did -- DONE
-Clean up the repating code by eliminating what is duplicates. (defining a variable once)
-Think of the steps that I need to put in the loop and put them in order for every cycle. 
+Clean up the repating code by eliminating what is duplicates. (defining a variable once) -- DONE
+Think of the steps that I need to put in the loop and put them in order for every cycle.
+
+Steps and writing code for the loop
+column_names
+search_terms
+load data
+filter for DMV
+zip_code to be 5 digits
+making dates yyyy-mm-dd
+Add the search_terms to the filter(str_detect
+
+
+
+```{r}
+#coding out the loop
+
+column_names <- c("committee_id", "amndt_ind", "report_year", "report_type", "image_number", "line_number", "form_tp_cd", "sched_tp_cd", "recipient_name", "recipient_city", "recipient_state", "zip_code", "disbursement_date", "disbursement_amount", "transaction_pgi", "disbursement_description", "category", "category_desc", "memo_cd", "memo_text", "entity_type", "sub_id", "file_num", "tran_id", "back_ref_tran_id") %>% 
+search_terms <- c("FOOD", "BEVERAGE", "DINING", "MEAL", "CATERING", "DRINK", "EVENT") %>% 
+#data_frame< - read_delim("~/Downloads/data_frame", delim = "|", col_names = column_names) %>% 
+filter(recipient_state == "DC"| recipient_state == "MD" | recipient_state == "VA") %>% 
+mutate(zip_code = str_sub(zip_code, start=1L, end=5L)) %>% 
+mutate(disbursement_date=mdy(disbursement_date)) %>% 
+filter(str_detect(disbursement_description, str_c(search_terms, collapse = "|")))
+
+
+
+
+
+
+```
+
+
+
 
 
 
