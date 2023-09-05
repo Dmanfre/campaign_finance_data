@@ -46,83 +46,33 @@ search_terms <- c("FOOD", "BEVERAGE", "DINING", "MEAL", "CATERING", "DRINK", "EV
 ```{r}
 #2015-2016 data
 
-column_names <- c("CMTE_ID", "AMNDT_IND", "REPORT_YEAR", "REPORT_TYPE", "IMAGE_NUM", "LINE_NUM", "FORM_TP_CD", "SCHED_TP_CD", "NAME", "CITY", "STATE", "ZIP_CODE", "DISBURSEMENT_DATE", "DISBURSEMENT_AMOUNT", "TRANSACTION_PGI", "PURPOSE", "CATEGORY", "CATEGORY_DESC", "MEMO_CD", "MEMO_TEXT", "ENTITY_TP", "SUB_ID", "FILE_NUM", "TRAN_ID", "BACK_REF_TRAN_ID")  # Add your column names here
+dmv_foods_1516 <- read_delim("~/Downloads/oppexp.txt", delim = "|", col_names = column_names)
 
-new_food_data <- read_delim("~/Downloads/oppexp.txt", delim = "|", col_names = column_names)
-
-# making the column names lower case
-colnames(new_food_data) <- tolower(colnames(new_food_data))
 
 #need to convert disbursement_date into a date field yyyy-mm-dd
 #need to convert the zipcodes into a 5-digit field.
 
 
-new_food_data <- new_food_data %>% 
-filter(state == "DC"| state == "MD" | state == "VA")
+dmv_foods_1516 <- dmv_foods_1516 %>% 
+filter(recipient_state == "DC"| recipient_state == "MD" | recipient_state == "VA")
 
 
 ```
-
 
 
 ```{r}
 #use strings and then test them all togeter
 
 
-new_category_totals <- new_food_data %>% 
+category_totals_1516 <- dmv_foods_1516 %>% 
 group_by(purpose) %>% 
 count() %>% 
 arrange(desc(n))
 
-
-new_food_data %>% 
-filter(purpose == "FOOD AND BEV")
-
-new_food_data %>% 
-filter(purpose == "MEALS")
-
-new_food_data %>% 
-  filter(purpose == "FOOD")
-
-new_food_data %>% 
-  filter(purpose == "EVENT FOOD")
-
-new_food_data %>% 
-filter(purpose == "DINING EXPENSE")
-
-new_food_data %>% 
-filter(purpose == "FOOD AND BEVERAGE") #Keep this one and combine it with "FOOD AND BEV"
-
-
-
-
-#Using the filter with str_detects here
-new_food_data %>% 
-filter(str_detect(purpose, "FOOD"))
-
-new_food_data %>% 
-filter(str_detect(purpose, "BEVERAGE"))
-
-new_food_data %>% 
-filter(str_detect(purpose, "DINING"))
-
-new_food_data %>% 
-filter(str_detect(purpose, "MEALS"))
-
-new_food_data %>% 
-filter(str_detect(purpose, "CATERING"))
-
-new_food_data %>% 
-filter(str_detect(purpose, "DRINKS"))
-
-new_food_data %>% 
-filter(str_detect(purpose, "EVENTS"))
-
-
 # filter(str_detect the terms to dmv_food when I am ready)
 # and do it like this 
 
-new_food_data %>%
+dmv_foods_1516 %>%
   filter(str_detect(purpose, "FOOD") | 
          str_detect(purpose, "BEVERAGE") | 
          str_detect(purpose, "DINING") |
@@ -140,9 +90,8 @@ new_food_data %>%
 
 ```{r}
 # Next step is to save the purpose terms to a search_terms variable.
-search_terms <- c("FOOD", "BEVERAGE", "DINING", "MEAL", "CATERING", "DRINK", "EVENT")
 
-dmv_foods_1516 <-  new_food_data %>%
+dmv_foods_1516 <-  dmv_foods_1516 %>%
   filter(str_detect(purpose, str_c(search_terms, collapse = "|")))
   #This matches the other method of using filter and str_detects and produces the same 44,057 rows.
 ```
@@ -195,15 +144,6 @@ head()
 
 ```{r}
 
-#establishing column names
-column_names <- c("committee_id", "AMNDT_IND", "report_year", "report_type", "image_number", "line_number", "FORM_TP_CD", "SCHED_TP_CD", "recipient_name", "recipient_city", "recipient_state", "zip_code", "DISBURSEMENT_DATE", "DISBURSEMENT_AMOUNT", "TRANSACTION_PGI", "disbursement_description", "CATEGORY", "CATEGORY_DESC", "MEMO_CD", "MEMO_TEXT", "ENTITY_TP", "SUB_ID", "FILE_NUM", "TRAN_ID", "BACK_REF_TRAN_ID")  # Add your column names here
-
-# making the column names lower case
-colnames(dmv_foods21_22) <- tolower(colnames(dmv_foods21_22))
-
-#need to convert disbursement_date into a date field yyyy-mm-dd
-#need to convert the zipcodes into a 5-digit field.
-
 #filtering for DC, MD, VA
 dmv_foods21_22 <- dmv_foods21_22 %>% 
 filter(recipient_state == "DC"| recipient_state == "MD" | recipient_state == "VA")
@@ -249,7 +189,6 @@ dmv_foods21_22 %>%
 
 ```{r}
 # Next step is to save the purpose terms to a search_terms variable.
-search_terms <- c("FOOD", "BEVERAGE", "DINING", "MEAL", "CATERING", "DRINK", "EVENT")
 
 dmv_foods21_22 <- dmv_foods21_22%>%
   filter(str_detect(disbursement_description, str_c(search_terms, collapse = "|")))
@@ -275,12 +214,6 @@ head()
 ```
 
 ```{r}
-# making the column names lower case
-colnames(dmv_foods19_20) <- tolower(colnames(dmv_foods19_20))
-
-#need to convert disbursement_date into a date field yyyy-mm-dd
-#need to convert the zipcodes into a 5-digit field.
-
 #filtering for DC, MD, VA
 dmv_foods19_20 <- dmv_foods19_20 %>% 
 filter(recipient_state == "DC"| recipient_state == "MD" | recipient_state == "VA")
@@ -324,10 +257,6 @@ dmv_foods19_20 %>%
         str_detect(disbursement_description, "EVENT"))
 #This procudes a tibble with 42,918 rows. 
 
-
-# Next step is to save the purpose terms to a search_terms variable.
-search_terms <- c("FOOD", "BEVERAGE", "DINING", "MEAL", "CATERING", "DRINK", "EVENT")
-
 dmv_foods19_20 <- dmv_foods19_20 %>%
   filter(str_detect(disbursement_description, str_c(search_terms, collapse = "|")))
   #This matches the other method of using filter and str_detects and produces the same 42,918 rows.
@@ -343,15 +272,6 @@ Importing data from 17-18
 #importing data
 
  dmv_foods17_18<- read_delim("~/Downloads/data1718.txt", delim = "|", col_names = column_names)
-
-dmv_foods17_18 %>% 
-head()
-
-#establishing column names
-column_names <- c("committee_id", "AMNDT_IND", "report_year", "report_type", "image_number", "line_number", "FORM_TP_CD", "SCHED_TP_CD", "recipient_name", "recipient_city", "recipient_state", "zip_code", "DISBURSEMENT_DATE", "DISBURSEMENT_AMOUNT", "TRANSACTION_PGI", "disbursement_description", "CATEGORY", "CATEGORY_DESC", "MEMO_CD", "MEMO_TEXT", "ENTITY_TP", "SUB_ID", "FILE_NUM", "TRAN_ID", "BACK_REF_TRAN_ID")  # Add your column names here
-
-# making the column names lower case
-colnames(dmv_foods17_18) <- tolower(colnames(dmv_foods17_18))
 
 dmv_foods17_18 %>% 
 head()
@@ -416,16 +336,6 @@ dmv_foods13_14<- read_delim("~/Downloads/data1314.txt", delim = "|", col_names =
 dmv_foods13_14 %>% 
 head()
 
-#establishing column names
-column_names <- c("committee_id", "AMNDT_IND", "report_year", "report_type", "image_number", "line_number", "FORM_TP_CD", "SCHED_TP_CD", "recipient_name", "recipient_city", "recipient_state", "zip_code", "DISBURSEMENT_DATE", "DISBURSEMENT_AMOUNT", "TRANSACTION_PGI", "disbursement_description", "CATEGORY", "CATEGORY_DESC", "MEMO_CD", "MEMO_TEXT", "ENTITY_TP", "SUB_ID", "FILE_NUM", "TRAN_ID", "BACK_REF_TRAN_ID")  # Add your column names here
-
-# making the column names lower case
-colnames(dmv_foods13_14) <- tolower(colnames(dmv_foods13_14))
-
-dmv_foods13_14 %>% 
-head()
-
-
 ```
 
 
@@ -472,9 +382,7 @@ dmv_foods13_14 %>%
 
 ```{r}
 
-# Next step is to save the purpose terms to a search_terms variable.
-search_terms <- c("FOOD", "BEVERAGE", "DINING", "MEAL", "CATERING", "DRINK", "EVENT")
-
+#Plugging in the search terms
 dmv_foods13_14 <- dmv_foods13_14 %>%
   filter(str_detect(disbursement_description, str_c(search_terms, collapse = "|")))
 #matches the filter of 47,129 rows.
@@ -489,17 +397,6 @@ dmv_foods11_12<- read_delim("~/Downloads/data1112.txt", delim = "|", col_names =
 
 dmv_foods11_12 %>% 
 head()
-
-#establishing column names
-column_names <- c("committee_id", "AMNDT_IND", "report_year", "report_type", "image_number", "line_number", "FORM_TP_CD", "SCHED_TP_CD", "recipient_name", "recipient_city", "recipient_state", "zip_code", "DISBURSEMENT_DATE", "DISBURSEMENT_AMOUNT", "TRANSACTION_PGI", "disbursement_description", "CATEGORY", "CATEGORY_DESC", "MEMO_CD", "MEMO_TEXT", "ENTITY_TP", "SUB_ID", "FILE_NUM", "TRAN_ID", "BACK_REF_TRAN_ID")  # Add your column names here
-
-# making the column names lower case
-colnames(dmv_foods11_12) <- tolower(colnames(dmv_foods11_12))
-
-dmv_foods11_12 %>% 
-head()
-
-
 
 ```
 
@@ -552,8 +449,6 @@ dmv_foods11_12 %>%
 ```{r}
 
 # Next step is to save the purpose terms to a search_terms variable.
-search_terms <- c("FOOD", "BEVERAGE", "DINING", "MEAL", "CATERING", "DRINK", "EVENT")
-
 dmv_foods11_12 <- dmv_foods11_12 %>%
   filter(str_detect(disbursement_description, str_c(search_terms, collapse = "|")))
 #matches the filter of 42,479 rows.
