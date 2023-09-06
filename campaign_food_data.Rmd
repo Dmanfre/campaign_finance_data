@@ -43,15 +43,16 @@ search_terms <- c("FOOD", "BEVERAGE", "DINING", "MEAL", "CATERING", "DRINK", "EV
 ```{r}
 #2015-2016 data
 
-dmv_foods_1516 <- read_delim("~/Downloads/oppexp.txt", delim = "|", col_names = column_names)
+dmv_foods15_16 <- read_delim("~/Downloads/oppexp.txt", delim = "|", col_names = column_names)
 
 
 #need to convert disbursement_date into a date field yyyy-mm-dd
 #need to convert the zipcodes into a 5-digit field.
 
 
-dmv_foods_1516 <- dmv_foods_1516 %>% 
+dmv_foods15_16 <- dmv_foods15_16 %>% 
 filter(recipient_state == "DC"| recipient_state == "MD" | recipient_state == "VA")
+
 
 
 ```
@@ -60,7 +61,7 @@ filter(recipient_state == "DC"| recipient_state == "MD" | recipient_state == "VA
 ```{r}
 #use strings and then test them all togeter
 
-category_totals_1516 <- dmv_foods_1516 %>% 
+category_totals_1516 <- dmv_foods15_16 %>% 
 group_by(disbursement_description) %>% 
 count() %>% 
 arrange(desc(n))
@@ -68,7 +69,7 @@ arrange(desc(n))
 # filter(str_detect the terms to dmv_food when I am ready)
 # and do it like this 
 
-dmv_foods_1516 %>%
+dmv_foods15_16 %>%
   filter(str_detect(disbursement_description, "FOOD") | 
          str_detect(disbursement_description, "BEVERAGE") | 
          str_detect(disbursement_description, "DINING") |
@@ -87,7 +88,7 @@ dmv_foods_1516 %>%
 ```{r}
 # Next step is to save the purpose terms to a search_terms variable.
 
-dmv_foods_1516 <-  dmv_foods_1516 %>%
+dmv_foods15_16 <-  dmv_foods15_16 %>%
   filter(str_detect(disbursement_description, str_c(search_terms, collapse = "|")))
   #This matches the other method of using filter and str_detects and produces the same 44,057 rows.
 ```
@@ -96,15 +97,15 @@ dmv_foods_1516 <-  dmv_foods_1516 %>%
 ```{r}
 
 #making the date column correct
-dmv_foods_1516 <- dmv_foods_1516 %>%  mutate(disbursement_date=mdy(disbursement_date))
+dmv_foods15_16 <- dmv_foods15_16 %>%  mutate(disbursement_date=mdy(disbursement_date))
 
-dmv_foods_1516 %>% 
+dmv_foods15_16 %>% 
 head()
 
 
 # Giving 15-16 a 5-digit zipcode
 
-dmv_foods_1516 <- dmv_foods_1516 %>% 
+dmv_foods15_16 <- dmv_foods15_16 %>% 
 mutate(zip_code = str_sub(zip_code, start=1L, end=5L))
 
 
@@ -115,13 +116,13 @@ mutate(zip_code = str_sub(zip_code, start=1L, end=5L))
 #Seeing how many individuals there are.
 #Does this affect what we do becuase we want to look at organizations rather than individual people. 
 
- dmv_foods_1516 %>%
+ dmv_foods15_16 %>%
   filter(entity_type == "IND") %>% 
   group_by(recipient_name) %>% 
   summarise(total_amount = sum(disbursement_amount)) %>%
   arrange(desc(total_amount))
 
- dmv_foods_1516 %>%
+ dmv_foods15_16 %>%
   filter(entity_type == "ORG") %>% 
   group_by(recipient_name) %>% 
   summarise(total_amount = sum(disbursement_amount)) %>%
@@ -495,9 +496,64 @@ making dates yyyy-mm-dd
 Add the search_terms to the filter(str_detect
 
 
-
 ```{r}
-#coding out the loop
+#establishing and trying out things for the loop
+
+dmv_foods_combined <- tibble()
+
+# Define a list of years
+cycles <- c('1112', '1314', '1516','1718','1920','2122','2324')
+# Create a for loop to execute functions
+for (cycle in cycles) {
+  
+    # need to build the path to the .txt file
+    path <- paste0("~/Downloads/data", cycle,".txt")
+    print(path)
+    dmv_food <- read_delim(path, delim = "|", col_names = column_names)
+    dmv_food_filtered <- dmv_food %>% 
+    filter(recipient_state == "DC"| recipient_state == "MD" | recipient_state == "VA") %>%
+    filter(entity_type != "IND") %>% 
+    mutate(zip_code = str_sub(zip_code, start=1L, end=5L)) %>%
+    mutate(disbursement_date=mdy(disbursement_date)) %>%
+    filter(str_detect(disbursement_description, str_c(search_terms, collapse = "|")))
+    dmv_foods_combined <- bind_rows(dmv_foods_combined, dmv_food_filtered)
+}
+
+
+# fix the dates that havent happened yet and I can do that by looking at the image number on FEC. 
+
+
+# FOR OPEN REFINE I WANT A LIST OF UNIQUE RESTURANTS. 
+
+#RETAIN HOW IT ORIGINALLY APPEARS AND THEN MAKE A COPY OF THE COLUMN. 
+
+
+dmv_foods_combined %>% 
+group_by(entity_type) %>% 
+count()
+
+
+CAN	438	candidates		
+CCM	87			
+COM	1281			
+ORG	272382			
+PAC	2620			
+PTY
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+#coding out the loop ... tried to make this one big and then... statement.
 
 column_names <- c("committee_id", "amndt_ind", "report_year", "report_type", "image_number", "line_number", "form_tp_cd", "sched_tp_cd", "recipient_name", "recipient_city", "recipient_state", "zip_code", "disbursement_date", "disbursement_amount", "transaction_pgi", "disbursement_description", "category", "category_desc", "memo_cd", "memo_text", "entity_type", "sub_id", "file_num", "tran_id", "back_ref_tran_id") %>% 
 search_terms <- c("FOOD", "BEVERAGE", "DINING", "MEAL", "CATERING", "DRINK", "EVENT") %>% 
