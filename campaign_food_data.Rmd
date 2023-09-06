@@ -117,6 +117,10 @@ for (cycle in cycles) {
 # FOR OPEN REFINE I WANT A LIST OF UNIQUE RESTURANTS. 
 
 #RETAIN HOW IT ORIGINALLY APPEARS AND THEN MAKE A COPY OF THE COLUMN.
+
+
+write_csv(dmv_foods_combined, "data/dmv_foods_combined.csv")
+
 ```
 
 
