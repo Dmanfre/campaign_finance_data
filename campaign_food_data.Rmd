@@ -80,6 +80,11 @@ filter for DMV
 zip_code to be 5 digits
 making dates yyyy-mm-dd
 Add the search_terms to the filter(str_detect
+-----------------------------------------------
+
+
+The loop establishes a list of functions to run on each dataset. The cycles value is populated with the years. Then the paste0 saved to the path, has the file path.
+Then It reads in the file, filters out IND and all staes not DC, MD and VA. It formats the zip_code column, disbursement_date column and search_terms to be proper. THen it binds all the rows together. 
 
 
 ```{r}
