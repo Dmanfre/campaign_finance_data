@@ -133,32 +133,18 @@ count()
 ```
 
 
+```{r}
 
+distinct_columns <- dmv_foods_combined %>% 
+distinct(recipient_name) %>% 
+mutate(cleaned_names = recipient_name)
 
-
-
-
-
-
-
-
-
-#coding out the loop ... tried to make this one big and then... statement.
-
-column_names <- c("committee_id", "amndt_ind", "report_year", "report_type", "image_number", "line_number", "form_tp_cd", "sched_tp_cd", "recipient_name", "recipient_city", "recipient_state", "zip_code", "disbursement_date", "disbursement_amount", "transaction_pgi", "disbursement_description", "category", "category_desc", "memo_cd", "memo_text", "entity_type", "sub_id", "file_num", "tran_id", "back_ref_tran_id") %>% 
-search_terms <- c("FOOD", "BEVERAGE", "DINING", "MEAL", "CATERING", "DRINK", "EVENT") %>% 
-#data_frame< - read_delim("~/Downloads/data_frame", delim = "|", col_names = column_names) %>% 
-filter(recipient_state == "DC"| recipient_state == "MD" | recipient_state == "VA") %>% 
-mutate(zip_code = str_sub(zip_code, start=1L, end=5L)) %>% 
-mutate(disbursement_date=mdy(disbursement_date)) %>% 
-filter(str_detect(disbursement_description, str_c(search_terms, collapse = "|")))
-
-
-
+write_csv(distinct_columns, "data/distinct_columns.csv")
 
 
 
 ```
+
 
 
 
