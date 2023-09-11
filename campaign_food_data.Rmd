@@ -134,7 +134,7 @@ count()
 
 
 ```{r}
-
+#Creating a column of the recipients to be cleaned in Open Refine
 distinct_columns <- dmv_foods_combined %>% 
 distinct(recipient_name) %>% 
 mutate(cleaned_names = recipient_name)
