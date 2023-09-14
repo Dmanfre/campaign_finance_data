@@ -125,11 +125,22 @@ write_csv(dmv_foods_combined, "data/dmv_foods_combined.csv")
 
 
 ```{r}
-#What are thte entity types
+#What are the entity types
 
 dmv_foods_combined %>% 
 group_by(entity_type) %>% 
 count()
+
+#ORG has the most with 208,760 transactions. Need to see what types of places make up that entity_type column.
+
+dmv_foods_combined %>% 
+filter(entity_type == "ORG") %>% 
+group_by(recipient_name) %>% 
+summarize(total = sum(disbursement_amount)) %>% 
+arrange(desc(total))
+
+#This is showing that not many of the top recipients in the ORG category are actual food establishments
+
 ```
 
 
@@ -144,6 +155,29 @@ write_csv(distinct_columns, "data/distinct_columns.csv")
 
 
 ```
+
+
+```{r}
+#reading back the cleaned district columns
+
+district_cols_cleaned <- read_csv("data/recipient_names_cleaned.csv")
+
+district_cols_cleaned %>% 
+group_by(cleaned_names) %>% 
+count() %>% 
+arrange(n)
+
+#Methodology: brought back the cleaned district columns after standardizing and clustering in open refine. I put a Y in a "exclude" column because those recipient names are not related to food or food establishments. One method of getting rid of those names was doing that. Another is joining the district_cols_cleaned dataframe back to dmv_foods_combined and then filtering out everything that is not an ORG entity_type
+
+```
+
+
+
+
+
+
+
+
 
 
 
