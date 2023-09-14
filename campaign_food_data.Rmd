@@ -172,6 +172,20 @@ arrange(n)
 ```
 
 
+```{r}
+#Trying to see what type of places are in the other categories in Entity_type. This will help. determine more I should exclude in Google Sheets. From there, I can gather more key words to label Y when I exclude them later on.
+
+
+dmv_foods_combined %>% 
+group_by(recipient_name, disbursement_description) %>% 
+filter(entity_type == "ORG") %>% 
+select(recipient_name, disbursement_description, entity_type)
+
+# In addition to cleaning the names in sheets, I think a good way to find out what I need to exclude is by looking at the disbursement description. Because I don't want transactions that ahve to do with general committee stuff or meetings. I want places where they actually spend money on food.
+
+
+
+```
 
 
 
