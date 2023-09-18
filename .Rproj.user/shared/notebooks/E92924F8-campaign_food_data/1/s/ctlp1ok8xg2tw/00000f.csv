@@ -1,0 +1,7 @@
+"0","#establishing column names and search terms to use in each dataset"
+"0",""
+"0","column_names <- c(""committee_id"", ""amndt_ind"", ""report_year"", ""report_type"", ""image_number"", ""line_number"", ""form_tp_cd"", ""sched_tp_cd"", ""recipient_name"", ""recipient_city"", ""recipient_state"", ""zip_code"", ""disbursement_date"", ""disbursement_amount"", ""transaction_pgi"", ""disbursement_description"", ""category"", ""category_desc"", ""memo_cd"", ""memo_text"", ""entity_type"", ""sub_id"", ""file_num"", ""tran_id"", ""back_ref_tran_id"")  # Add your column names here"
+"0",""
+"0","#search_terms to use in the loops and in each dataset"
+"0","search_terms <- c(""FOOD"", ""BEVERAGE"", ""DINING"", ""MEAL"", ""CATERING"", ""DRINK"", ""EVENT"")"
+"0",""
