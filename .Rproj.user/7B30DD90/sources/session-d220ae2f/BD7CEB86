@@ -3,9 +3,9 @@
     "path": "~/Documents/GitHub/campaign_finance_data/campaign_food_data.Rmd",
     "project_path": "campaign_food_data.Rmd",
     "type": "r_markdown",
-    "hash": "0",
+    "hash": "3986711002",
     "contents": "",
-    "dirty": true,
+    "dirty": false,
     "created": 1695050601563.0,
     "source_on_save": false,
     "relative_order": 1,
@@ -13,15 +13,15 @@
         "source_window_id": "",
         "Source": "Source",
         "last_setup_crc32": "d220ae2fbb338d19",
-        "cursorPosition": "214,14",
-        "scrollLine": "208"
+        "cursorPosition": "123,3",
+        "scrollLine": "113"
     },
     "folds": "",
-    "lastKnownWriteTime": 1695051729,
+    "lastKnownWriteTime": 1695071499,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1695052582989,
+    "last_content_update": 1695138700395,
     "read_only": false,
     "read_only_alternatives": []
 }

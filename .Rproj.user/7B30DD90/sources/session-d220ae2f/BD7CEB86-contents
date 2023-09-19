@@ -211,8 +211,6 @@ mutate(cleaned_names = recipient_name)
 Sept. 19 update
 *** Because Dylan is a little silly we need to start over with the exclusions in Google sheets. The problem was that some records got deleted accidentially. We dont exactly know how it happened but now I can filter again in sheets labeling the records I want to exlcude with a 'y'. ***
 
-#Search terms I filtered in Sheets for exclusion
-- PAC, ASSN:, 
 
 
 
