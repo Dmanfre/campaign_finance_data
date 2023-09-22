@@ -1,7 +1,0 @@
-"0",""
-"0","#One thought I had would be to export the cleaned_nammes but put the disbursement_description next to it so we can see the reason for the transaction. I think this would help understand what was really used for a food expense and what was not. I commented out what I think the code should look like. "
-"0",""
-"0","#names_and_descriptions <- "
-"0","dmv_foods_combined %>% "
-"0","distinct(recipient_name, disbursement_description) %>% "
-"0","mutate(cleaned_names = recipient_name)"
