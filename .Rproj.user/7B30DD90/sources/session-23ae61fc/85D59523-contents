@@ -246,9 +246,11 @@ round2_exclusion <- round2_exclusion %>%
 mutate(disbursement_exclusion = NA)
 ```
 
-These are exclusions based on disbursement_description. They are records that do not get at a personal meal expense or signify personal habits.
+These are exclusions based on disbursement_description.
+They are records that do not get at a personal meal expense or signify personal habits.
+This also has some records of names I may have missed in the initial exclusion process RED TOP CAB was one of those names (line 261, line 265)
 
-
+OR should this be excluding names based on disbursement discription?
 ```{r}
 #working on exclusions based on disbursement_discription
 #this populates a column called disbursement_exclusion with 
@@ -257,6 +259,14 @@ mutate(disbursement_exclusion = case_when(
     disbursement_description == "EVENT SUPPLIES" ~ "y", 
     disbursement_description == "FUNDRAISING EVENT" ~ "y",
     disbursement_description == "FUNDRAISING EVENT MANAGEMENT FEE & EXPENSES" ~ "y",
+    cleaned_names == "RED TOP CAB" ~ "y",
+    disbursement_description == "EVENT REGISTRATION FEES - NOT FOR A FEDERAL CANDIDATE" ~ "y",
+    disbursement_description == "CAMPAIGN EVENT: FACILITY RENTAL" ~ "y",
+    cleaned_names == " THE TOWNSEND GROUP" ~ "y",
+    
+  
+    
+
     
     
 
