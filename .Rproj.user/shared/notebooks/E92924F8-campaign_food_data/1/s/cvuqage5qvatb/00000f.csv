@@ -1,0 +1,122 @@
+"0","#establishing and trying out things for the loop"
+"0",""
+"0","dmv_foods_combined <- tibble()"
+"0",""
+"0","# Define a list of years"
+"0","cycles <- c('1112', '1314', '1516','1718','1920','2122','2324')"
+"0","# Create a for loop to execute functions"
+"0","for (cycle in cycles) {"
+"0","  "
+"0","    # need to build the path to the .txt file"
+"0","    path <- paste0(""~/Downloads/data"", cycle,"".txt"")"
+"0","    print(path)"
+"0","    dmv_food <- read_delim(path, delim = ""|"", col_names = column_names)"
+"0","    dmv_food_filtered <- dmv_food %>% "
+"0","    filter(recipient_state == ""DC""| recipient_state == ""MD"" | recipient_state == ""VA"") %>%"
+"0","    filter(entity_type != ""IND"") %>% "
+"0","    mutate(zip_code = str_sub(zip_code, start=1L, end=5L)) %>%"
+"0","    mutate(disbursement_date=mdy(disbursement_date)) %>%"
+"0","    filter(str_detect(disbursement_description, str_c(search_terms, collapse = ""|"")))"
+"0","    dmv_foods_combined <- bind_rows(dmv_foods_combined, dmv_food_filtered)"
+"0","}"
+"1","[1]"
+"1"," ""~/Downloads/data1112.txt"""
+"1","
+"
+"2","[1mRows: [22m[34m1656089[39m [1mColumns: [22m[34m26[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m ""|""
+[31mchr[39m (20): committee_id, amndt_ind, report_type, line_number, form_tp_cd, sched_tp_cd, recipient_name, recipient_city, recipient_state, zip_code, disbursement_d...
+[32mdbl[39m  (5): report_year, image_number, disbursement_amount, sub_id, file_num
+[33mlgl[39m  (1): X26"
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."
+"1","[1]"
+"1"," ""~/Downloads/data1314.txt"""
+"1","
+"
+"2","[1mRows: [22m[34m1351071[39m [1mColumns: [22m[34m26[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m ""|""
+[31mchr[39m (20): committee_id, amndt_ind, report_type, line_number, form_tp_cd, sched_tp_cd, recipient_name, recipient_city, recipient_state, zip_code, disbursement_d...
+[32mdbl[39m  (5): report_year, image_number, disbursement_amount, sub_id, file_num
+[33mlgl[39m  (1): X26"
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."
+"1","[1]"
+"1"," ""~/Downloads/data1516.txt"""
+"1","
+"
+"2","[1mRows: [22m[34m1744187[39m [1mColumns: [22m[34m26[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m ""|""
+[31mchr[39m (20): committee_id, amndt_ind, report_type, line_number, form_tp_cd, sched_tp_cd, recipient_name, recipient_city, recipient_state, zip_code, disbursement_d...
+[32mdbl[39m  (5): report_year, image_number, disbursement_amount, sub_id, file_num
+[33mlgl[39m  (1): X26"
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."
+"1","[1]"
+"1"," ""~/Downloads/data1718.txt"""
+"1","
+"
+"2","[1mRows: [22m[34m1800080[39m [1mColumns: [22m[34m26[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m ""|""
+[31mchr[39m (20): committee_id, amndt_ind, report_type, line_number, form_tp_cd, sched_tp_cd, recipient_name, recipient_city, recipient_state, zip_code, disbursement_d...
+[32mdbl[39m  (5): report_year, image_number, disbursement_amount, sub_id, file_num
+[33mlgl[39m  (1): X26"
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."
+"1","[1]"
+"1"," ""~/Downloads/data1920.txt"""
+"1","
+"
+"2","[1mRows: [22m[34m2316699[39m [1mColumns: [22m[34m26[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m ""|""
+[31mchr[39m (20): committee_id, amndt_ind, report_type, line_number, form_tp_cd, sched_tp_cd, recipient_name, recipient_city, recipient_state, zip_code, disbursement_d...
+[32mdbl[39m  (5): report_year, image_number, disbursement_amount, sub_id, file_num
+[33mlgl[39m  (1): X26"
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."
+"1","[1]"
+"1"," ""~/Downloads/data2122.txt"""
+"1","
+"
+"2","[1mRows: [22m[34m361926[39m [1mColumns: [22m[34m26[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m ""|""
+[31mchr[39m (20): committee_id, amndt_ind, report_type, line_number, form_tp_cd, sched_tp_cd, recipient_name, recipient_city, recipient_state, zip_code, disbursement_d...
+[32mdbl[39m  (5): report_year, image_number, disbursement_amount, sub_id, file_num
+[33mlgl[39m  (1): X26"
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."
+"1","[1]"
+"1"," ""~/Downloads/data2324.txt"""
+"1","
+"
+"2","[1mRows: [22m[34m361926[39m [1mColumns: [22m[34m26[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m ""|""
+[31mchr[39m (20): committee_id, amndt_ind, report_type, line_number, form_tp_cd, sched_tp_cd, recipient_name, recipient_city, recipient_state, zip_code, disbursement_d...
+[32mdbl[39m  (5): report_year, image_number, disbursement_amount, sub_id, file_num
+[33mlgl[39m  (1): X26"
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."
+"0","# fix the dates that havent happened yet and I can do that by looking at the image number on FEC. "
+"0",""
+"0",""
+"0","# FOR OPEN REFINE I WANT A LIST OF UNIQUE RESTURANTS. "
+"0",""
+"0","#RETAIN HOW IT ORIGINALLY APPEARS AND THEN MAKE A COPY OF THE COLUMN."
+"0",""
+"0",""
+"0","write_csv(dmv_foods_combined, ""data/dmv_foods_combined.csv"")"
+"0",""

@@ -1,3 +1,0 @@
-"0",""
-"0","#Methodology: brought back the cleaned district columns after standardizing and clustering in open refine. I put a Y in a ""exclude"" column because those recipient names are not related to food or food establishments. One method of getting rid of those names was doing that. Another is joining the district_cols_cleaned dataframe back to dmv_foods_combined and then filtering out everything that is not an ORG entity_type"
-"0",""

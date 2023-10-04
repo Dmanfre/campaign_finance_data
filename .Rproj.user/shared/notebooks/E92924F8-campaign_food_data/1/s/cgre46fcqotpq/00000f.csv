@@ -1,7 +1,0 @@
-"0","#Trying to see what type of places are in the other categories in Entity_type. This will help. determine more I should exclude in Google Sheets. From there, I can gather more key words to label Y when I exclude them later on."
-"0",""
-"0",""
-"0","dmv_foods_combined %>% "
-"0","group_by(recipient_name, disbursement_description) %>% "
-"0","filter(entity_type == ""ORG"") %>% "
-"0","select(recipient_name, disbursement_description, entity_type)"
