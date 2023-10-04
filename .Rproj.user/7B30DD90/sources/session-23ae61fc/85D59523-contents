@@ -171,7 +171,6 @@ arrange(n)
 
 ```
 
-
 ```{r}
 #Trying to see what type of places are in the other categories in Entity_type. This will help. determine more I should exclude in Google Sheets. From there, I can gather more key words to label Y when I exclude them later on.
 
@@ -183,16 +182,11 @@ select(recipient_name, disbursement_description, entity_type)
 
 # In addition to cleaning the names in sheets, I think a good way to find out what I need to exclude is by looking at the disbursement description. Because I don't want transactions that ahve to do with general committee stuff or meetings. I want places where they actually spend money on food.
 
-
-
-
-
-
 ```
 
 Progress from Sept. 15, 2023
 
-```{r}
+
 
 #One thought I had would be to export the cleaned_nammes but put the disbursement_description next to it so we can see the reason for the transaction. I think this would help understand what was really used for a food expense and what was not. I commented out what I think the code should look like. 
 
@@ -201,10 +195,6 @@ distinct(recipient_name, disbursement_description) %>%
 mutate(cleaned_names = recipient_name)
 #group_by(recipient_name, disbursement_description) %>% 
 #select(recipient_name, disbursement_description)
-
-
-
-```
 
 
 Sept. 19 update
@@ -237,14 +227,14 @@ dmv_foods_combined <- dmv_foods_combined %>%
 inner_join(exclusions, by = "recipient_name")
 
 dmv_foods_combined <- dmv_foods_combined %>% 
-  mutate(exclude = case_when(is.na(exclude) ~ "n", TRUE ~ exclude))
+  mutate(exclude_rd1 = case_when(is.na(exclude) ~ "n", TRUE ~ exclude))
 # entries labeled n are ones we want to keep in our analysis
 
 #removing exlcusions
 round2_exclusion <- dmv_foods_combined %>% 
-filter(exclude != "y") %>% 
-distinct(cleaned_names, disbursement_description, exclude) %>% 
-select(cleaned_names, disbursement_description, exclude)
+filter(exclude_rd1 != "y") %>% 
+distinct(cleaned_names, disbursement_description, exclude_rd1) %>% 
+select(cleaned_names, disbursement_description, exclude_rd1)
 #working with 45,972 records to determine on the basis of disbursement_description
 #These are records to keep in our analysis
 
@@ -252,11 +242,28 @@ select(cleaned_names, disbursement_description, exclude)
 ```
 
 ```{r}
+round2_exclusion <- round2_exclusion %>% 
+mutate(disbursement_exclusion = NA)
+```
 
+These are exclusions based on disbursement_description. They are records that do not get at a personal meal expense or signify personal habits.
+
+
+```{r}
+#working on exclusions based on disbursement_discription
+#this populates a column called disbursement_exclusion with 
 round2_exclusion %>% 
-mutate(
+mutate(disbursement_exclusion = case_when(
+    disbursement_description == "EVENT SUPPLIES" ~ "y", 
+    disbursement_description == "FUNDRAISING EVENT" ~ "y",
+    disbursement_description == "FUNDRAISING EVENT MANAGEMENT FEE & EXPENSES" ~ "y",
+    
+    
 
+    TRUE ~ NA_character_
+  ))
 
+#next step is to join round2_exclusion back to dmv_foods_combined
 
 ```
 
