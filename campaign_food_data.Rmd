@@ -196,8 +196,7 @@ Progress from Sept. 15, 2023
 
 #One thought I had would be to export the cleaned_nammes but put the disbursement_description next to it so we can see the reason for the transaction. I think this would help understand what was really used for a food expense and what was not. I commented out what I think the code should look like. 
 
-#names_and_descriptions <- 
-dmv_foods_combined %>% 
+names_and_descriptions <- dmv_foods_combined %>% 
 distinct(recipient_name, disbursement_description) %>% 
 mutate(cleaned_names = recipient_name)
 #group_by(recipient_name, disbursement_description) %>% 
@@ -210,6 +209,56 @@ mutate(cleaned_names = recipient_name)
 
 Sept. 19 update
 *** Because Dylan is a little silly we need to start over with the exclusions in Google sheets. The problem was that some records got deleted accidentially. We dont exactly know how it happened but now I can filter again in sheets labeling the records I want to exlcude with a 'y'. ***
+
+
+Joinign back in the data for exclusions
+
+Steps: load exclusions dataset, 
+      join it to dmv_foods combined based on recipient_name column (or district_cols_cleaned?), 
+      filter everything where exclusion != "y"
+      continue doing exclusions based on disbursement_discription
+      
+```{r}
+#loading in exclusions
+exclusions <- read_csv("data/cleaned_names_attempt_2.csv")
+
+exclusions <- exclusions %>% 
+select(-Notes)
+
+
+view(exclusions)
+```
+
+
+```{r}
+#joining exclusions to dmv_foods_combined
+
+dmv_foods_combined <- dmv_foods_combined %>% 
+inner_join(exclusions, by = "recipient_name")
+
+dmv_foods_combined <- dmv_foods_combined %>% 
+  mutate(exclude = case_when(is.na(exclude) ~ "n", TRUE ~ exclude))
+# entries labeled n are ones we want to keep in our analysis
+
+#removing exlcusions
+round2_exclusion <- dmv_foods_combined %>% 
+filter(exclude != "y") %>% 
+distinct(cleaned_names, disbursement_description, exclude) %>% 
+select(cleaned_names, disbursement_description, exclude)
+#working with 45,972 records to determine on the basis of disbursement_description
+#These are records to keep in our analysis
+
+
+```
+
+```{r}
+
+round2_exclusion %>% 
+mutate(
+
+
+
+```
 
 
 
