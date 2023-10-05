@@ -251,10 +251,21 @@ They are records that do not get at a personal meal expense or signify personal 
 This also has some records of names I may have missed in the initial exclusion process RED TOP CAB was one of those names (line 261, line 265)
 
 OR should this be excluding names based on disbursement discription?
+
+
+Notes
+- Fundraising Event put a Y next to Fogo De Chow which is a steakhouse. This is something I'd want to keep. Would that mean I shouldn't use Fundraising Events in the exclusion? Would it remove just the transactions based on that category?
+
+- Do I also remove PAC catering because I'm not really concerned with PACs?
+
+- Do I include the distinct(disbursement_description) part into the code because that significantly reduces the amount of descriptions? For yes: becuase it makes it easier to see what description im getting rid of. For no, becasue those descriptions are for transactions I want to get rid of but some I may want to keep.
+
+
 ```{r}
 #working on exclusions based on disbursement_discription
 #this populates a column called disbursement_exclusion with 
-round2_exclusion %>% 
+round2_exclusion %>%
+#distinct(disbursement_description) %>%  
 mutate(disbursement_exclusion = case_when(
     disbursement_description == "EVENT SUPPLIES" ~ "y", 
     disbursement_description == "FUNDRAISING EVENT" ~ "y",
@@ -262,21 +273,71 @@ mutate(disbursement_exclusion = case_when(
     cleaned_names == "RED TOP CAB" ~ "y",
     disbursement_description == "EVENT REGISTRATION FEES - NOT FOR A FEDERAL CANDIDATE" ~ "y",
     disbursement_description == "CAMPAIGN EVENT: FACILITY RENTAL" ~ "y",
-    cleaned_names == " THE TOWNSEND GROUP" ~ "y",
-    
-  
+    cleaned_names == "THE TOWNSEND GROUP" ~ "y",
+    cleaned_names == "VERONA CITGO 0001295" ~ "y",
+    cleaned_names == "WINDOWS CATERING COMPANY, INC." ~ "y",
+    disbursement_description == "CATERING & ROOM RENTAL" ~ "y",
+    disbursement_description == "FOOD FOR GOLF EVENT" ~ "y",
+    disbursement_description == "EVENTS-SITE SUPPLIES" ~ "y",
+    disbursement_description == "PAC ROOM RENTAL/EVENT SPACE" ~ "y",
+    disbursement_description == "ROOM RENTAL & CATERING FOR DONOR MEETING" ~ "y",
+    cleaned_names == "SUN TRUST BANK" ~ "y",
+    disbursement_description == "EVENT ENTERTAINMENT" ~ "y",
+    disbursement_description == "FC EVENT FACILITY & CATERING FEE" ~ "y",
+    disbursement_description == "JFC EVENT FACILITY FEE" ~ "y",
+    disbursement_description == "JFC EVENT SUPPLIES" ~ "y",
+    disbursement_description == "DEPOSIT FOR SPRING BALL EVENT TO BE HELD 5/12/12" ~ "y",
+    cleaned_names == "AVIS RENT A CAR" ~ "y",		
+    cleaned_names == "SUPERSHUTTLE EXECUCA" ~ "y",	
+   cleaned_names == "WINDOWS CATERING COMPANY, INC." ~ "y",	
+   cleaned_names == "ADVANTAGE" ~ "y",	
+   cleaned_names == "THE GROVE 1 AVIATION" ~ "y",	
+    disbursement_description == "PAC CIGARS FOR EVENT" ~ "y",
+    disbursement_description == "BANQUET CHARGES FOR EVENT" ~ "y",
+     disbursement_description == "INVOICE FR EVENT" ~ "y",
+     disbursement_description == "PAC EVENT TICKET" ~ "y",
+  	 cleaned_names == "THE ASHMEAD GROUP" ~ "y",
+      disbursement_description == "MBEPAC EVENT EXPENSE" ~ "y",
+       disbursement_description == "PAC PRINTING/TECHNOLOGY/FOOD&BEV./COLLATERAL" ~ "y",
+      disbursement_description == "2011 JULY EVENT" ~ "y",
+      disbursement_description == "CAMPAIGN EVENT: ROOM DEPOSIT" ~ "y",  
+      disbursement_description == "GIFT CERTIFICATES FOR EVENT" ~ "y", 
+      disbursement_description == "CATERING & ROOM RENTAL" ~ "y", 
+      disbursement_description == "EVENT PLANNING SERVICES" ~ "y", 
+      disbursement_description == "VOTER OUTREACH FOOD & BEVERAGES" ~ "y", 
+      disbursement_description == "PARTY BUILDING EVENT INVITATION POSTAGE" ~ "y",
+      disbursement_description == "PARTY BUILDING EVENT COFFEE" ~ "y",
+      disbursement_description == "PAC EVENT SITE RENTAL" ~ "y",
+      disbursement_description == "EVENT REGISTRATION FEES" ~ "y",
+      disbursement_description == "EVENT CATERING - NOT FOR A FEDERAL CANDIDATE" ~ "y",
+       disbursement_description == "CASH FOR EVENT FEES AND TIPS" ~ "y",
+      disbursement_description == "JFC CATERING AND LODGING EXPENSE" ~ "y",
+      disbursement_description == "ERICPAC EVENT STAFFING" ~ "y",
+      disbursement_description == "GENERIC FUNDRAISING EVENT TICKETS" ~ "y",
+      disbursement_description == "CATERING FOR THANK YOU EVENT" ~ "y",
+   
+
+
+
+
+	
+
+
+
+    	
+
+
     
 
     
-    
-
-    TRUE ~ NA_character_
+      TRUE ~ NA_character_
   ))
+
+view(round2_exclusion)
 
 #next step is to join round2_exclusion back to dmv_foods_combined
 
 ```
-
 
 
 
