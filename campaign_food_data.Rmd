@@ -260,6 +260,11 @@ Notes
 
 - Do I include the distinct(disbursement_description) part into the code because that significantly reduces the amount of descriptions? For yes: becuase it makes it easier to see what description im getting rid of. For no, becasue those descriptions are for transactions I want to get rid of but some I may want to keep.
 
+- Finding that the word "event" doesn't give me much of the records I want to include in the analysis
+
+- Use open refine on some of the disbursement_descriptions? Objective would be to miniize some of the unique lower quantity descriptions. Then I'd join the disbursement descriptions back to the round_2 exclusions?
+
+- Do we expel transactions with discriptions that only appear more than X times?
 
 ```{r}
 #working on exclusions based on disbursement_discription
@@ -315,29 +320,79 @@ mutate(disbursement_exclusion = case_when(
       disbursement_description == "ERICPAC EVENT STAFFING" ~ "y",
       disbursement_description == "GENERIC FUNDRAISING EVENT TICKETS" ~ "y",
       disbursement_description == "CATERING FOR THANK YOU EVENT" ~ "y",
-   
+      cleaned_names == "JEREMY GOLD" ~ "y",
+        cleaned_names == "US BOWLING" ~ "y",
+      cleaned_names == "2005-10 NEIL FLETCHER WILSON" ~ "y",
+      cleaned_names == "VENDORS UNDER $ 200" ~ "y",
+      cleaned_names == "TOTAL PARTY & TOTAL FRIGHT" ~ "y",
+      cleaned_names == "US CAPITOL HISTORICAL SOC" ~ "y",
+      disbursement_description == "CATERING REIMBURSEMENT" ~ "y",
+      disbursement_description == "EVENT DECORATIONS - SUPPLIES" ~ "y",
+       disbursement_description == "FUNDRAISING EVENT PLANNER FEE" ~ "y",
+   	  disbursement_description == "FUNDRAISER EVENT PLANNER FEE" ~ "y",
+         	  disbursement_description == "EVENT EXPENSE - ROOM RENTAL DEPOSIT" ~ "y",
+	              	  disbursement_description == "EVENT EXPENSE - PA SYSTEM RENTAL" ~ "y",
+   cleaned_names == "PARTY CITY" ~ "y",
+    disbursement_description == "PAC EVENT EXPENSE/RM RENTAL" ~ "y",
+   	disbursement_description == "PAC EVENT EXPENSE/BANQUET/ROOM RENTAL" ~ "y",
+    	disbursement_description == "EVENT ROOM & CATERING DEPOSIT" ~ "y",
+      disbursement_description == "EVENT PRODUCTION" ~ "y",
+      disbursement_description == "EVENT MATERIAL" ~ "y",
+      disbursement_description == "EVENT FACILITY RENTAL" ~ "y",
+      disbursement_description == "EVENT TICKETS" ~ "y",
+      disbursement_description == "EVENT/SUPPLIES" ~ "y",
+      disbursement_description == "EVENT/DECORATIONS" ~ "y",
+      disbursement_description == "JFC EVENT TICKETS" ~ "y",
+      cleaned_names == "CORDON EVENTS LLC" ~ "y",
+      disbursement_description == "EVENT CONSULTING" ~ "y",
+      disbursement_description == "EVENT DEPOSIT" ~ "y",
+      disbursement_description == "EVENT FEE" ~ "y",
+      disbursement_description == "EVENT FEES" ~ "y",
+      disbursement_description == "EVENT FEES" ~ "y",
+      disbursement_description == "EVENT/SOUND/STAGING" ~ "y",
+      disbursement_description == "TICKETS FOR EVENT" ~ "y",
+      disbursement_description == "EVENT - VENUE RENTAL" ~ "y",
+      disbursement_description == "EVENT PLANNING" ~ "y",
+      disbursement_description == "EVENT SECURITY" ~ "y",
+      disbursement_description == "EVENT REGISTRATION" ~ "y",
+      disbursement_description == "EVENT SPONSOR" ~ "y",
+      disbursement_description == "EVENT PLANNING SERVICES" ~ "y",
+      disbursement_description == "EVENT/SUPPLIES" ~ "y",
+       disbursement_description == "SUPPLIES FOR FUNDRAISING EVENT" ~ "y",
+   disbursement_description == "EVENT MUSIC" ~ "y",
+   disbursement_description == "EVENT SPEAKER" ~ "y",
+   disbursement_description == "EVENT ROOM RENT" ~ "y",
+   disbursement_description == "EVENT ROOM RENTAL DEPOSIT" ~ "y", 
+  disbursement_description == "EVENT ADVERTISING" ~ "y",
+  
 
 
 
 
-	
 
 
-
-    	
-
-
-    
-
-    
       TRUE ~ NA_character_
-  ))
+  ))  
+
+#slice(35000:45000)
+#using slice function to show me a range of the rows so that I dont have to slide the bar on the entire 45,000 row dataset
 
 view(round2_exclusion)
 
+count_descriptions <- round2_exclusion %>% 
+group_by(disbursement_description) %>% 
+count() %>% 
+arrange(desc(n))
+view(count_descriptions)
+```
+
+
+
+
+
+
 #next step is to join round2_exclusion back to dmv_foods_combined
 
-```
 
 
 
