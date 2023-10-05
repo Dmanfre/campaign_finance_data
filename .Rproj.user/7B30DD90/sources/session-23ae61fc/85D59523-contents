@@ -269,7 +269,7 @@ Notes
 ```{r}
 #working on exclusions based on disbursement_discription
 #this populates a column called disbursement_exclusion with 
-round2_exclusion %>%
+round2_exclusion <- round2_exclusion %>%
 #distinct(disbursement_description) %>%  
 mutate(disbursement_exclusion = case_when(
     disbursement_description == "EVENT SUPPLIES" ~ "y", 
@@ -364,7 +364,20 @@ mutate(disbursement_exclusion = case_when(
    disbursement_description == "EVENT ROOM RENT" ~ "y",
    disbursement_description == "EVENT ROOM RENTAL DEPOSIT" ~ "y", 
   disbursement_description == "EVENT ADVERTISING" ~ "y",
-  
+   disbursement_description == "EVENT MANGEMENT FEE" ~ "y",
+   disbursement_description == "EVENT LIABILITY INSURANCE" ~ "y",
+	disbursement_description == "OFFICE & EVENT SUPPLIES" ~ "y",
+  disbursement_description == "EVENT VENUE & TICKET COSTS" ~ "y",
+   disbursement_description == "PRIMARY WATCH EVENT" ~ "y",
+  disbursement_description == "EVENT TRAVEL" ~ "y",
+  disbursement_description == "JFC EVENT FACILITY FEE" ~ "y",
+   disbursement_description == "EVENT EXPENSE - VENUE RENTAL" ~ "y",
+ disbursement_description == "EVENT EXPENSE - TRANSPORTATION" ~ "y",
+disbursement_description == "SECURITY FOR EVENT" ~ "y",
+disbursement_description == "STAFF TRAINING EVENT" ~ "y",
+disbursement_description == "EVENT VENUE LEASE" ~ "y",
+
+
 
 
 
@@ -372,12 +385,14 @@ mutate(disbursement_exclusion = case_when(
 
 
       TRUE ~ NA_character_
-  ))  
+  ))
+#slice(35000:36000)
 
-#slice(35000:45000)
 #using slice function to show me a range of the rows so that I dont have to slide the bar on the entire 45,000 row dataset
 
-view(round2_exclusion)
+round2_exclusion %>% 
+filter(disbursement_exclusion == "y")
+
 
 count_descriptions <- round2_exclusion %>% 
 group_by(disbursement_description) %>% 
