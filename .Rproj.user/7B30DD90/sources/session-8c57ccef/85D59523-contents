@@ -243,7 +243,8 @@ select(cleaned_names, disbursement_description, exclude_rd1)
 
 ```{r}
 round2_exclusion <- round2_exclusion %>% 
-mutate(disbursement_exclusion = NA)
+mutate(exclude_rd2 = NA) 
+
 ```
 
 These are exclusions based on disbursement_description.
@@ -260,7 +261,7 @@ Notes
 
 - Do I include the distinct(disbursement_description) part into the code because that significantly reduces the amount of descriptions? For yes: becuase it makes it easier to see what description im getting rid of. For no, becasue those descriptions are for transactions I want to get rid of but some I may want to keep.
 
-- Finding that the word "event" doesn't give me much of the records I want to include in the analysis
+- Finding that the word "event" doesn't give me much of the records I want to include in the analysis.... do we re run everything wihtout event as a search term?
 
 - Use open refine on some of the disbursement_descriptions? Objective would be to miniize some of the unique lower quantity descriptions. Then I'd join the disbursement descriptions back to the round_2 exclusions?
 
@@ -271,7 +272,7 @@ Notes
 #this populates a column called disbursement_exclusion with 
 round2_exclusion <- round2_exclusion %>%
 #distinct(disbursement_description) %>%  
-mutate(disbursement_exclusion = case_when(
+mutate(exclude_rd2 = case_when(
     disbursement_description == "EVENT SUPPLIES" ~ "y", 
     disbursement_description == "FUNDRAISING EVENT" ~ "y",
     disbursement_description == "FUNDRAISING EVENT MANAGEMENT FEE & EXPENSES" ~ "y",
@@ -376,6 +377,39 @@ mutate(disbursement_exclusion = case_when(
 disbursement_description == "SECURITY FOR EVENT" ~ "y",
 disbursement_description == "STAFF TRAINING EVENT" ~ "y",
 disbursement_description == "EVENT VENUE LEASE" ~ "y",
+cleaned_names == "JEREMY GOLD" ~ "y",
+cleaned_names == "2005-10 NEIL FLETCHER WILSON" ~ "y",
+disbursement_description == "REIMBURSEMENT FOR EVENT EXPENSES" ~ "y",
+disbursement_description == "EVENTS-SITE SUPPLIES" ~ "y",
+disbursement_description == "TICKETS FOR CAMPAIGN EVENT" ~ "y",
+disbursement_description == "EVENT LOCATION" ~ "y",
+disbursement_description == "EVENT PRODUCTION / STAGING" ~ "y",
+disbursement_description == "EVENT RENTALS" ~ "y",
+disbursement_description == "EVENTS/MEETINGS CREDIT INVOICE" ~ "y",
+disbursement_description == "SUB-VENDOR: PAC FUNDRAISING EXP - CATERING/FOOD/BEV/ROOM USAGE" ~ "y",
+disbursement_description == "EVENT - ROOM FEE" ~ "y",
+disbursement_description == "EVENT - ENTERTAINMENT" ~ "y",
+disbursement_description == "EVENT PHOTOGRAPHY" ~ "y",
+disbursement_description == "EVENT EXPENSES - VENUE RENTAL AND CATERING" ~ "y",
+disbursement_description == "EVENT PRODUCTION SERVICES" ~ "y",
+disbursement_description == "EVENT SPACE RENTAL AND CATERING" ~ "y",
+disbursement_description == "EVENT TRANSPORTATION" ~ "y",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
 
 
 
@@ -391,7 +425,7 @@ disbursement_description == "EVENT VENUE LEASE" ~ "y",
 #using slice function to show me a range of the rows so that I dont have to slide the bar on the entire 45,000 row dataset
 
 round2_exclusion %>% 
-filter(disbursement_exclusion == "y")
+filter(exclude_rd2 == "y")
 
 
 count_descriptions <- round2_exclusion %>% 
@@ -399,6 +433,7 @@ group_by(disbursement_description) %>%
 count() %>% 
 arrange(desc(n))
 view(count_descriptions)
+view(round2_exclusion)
 ```
 
 
