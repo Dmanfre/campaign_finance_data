@@ -225,17 +225,16 @@ dmv_foods_combined <- dmv_foods_combined %>%
   mutate(exclude_rd1 = case_when(is.na(exclude) ~ "n", TRUE ~ exclude))
 # entries labeled n are ones we want to keep in our analysis
 
-#removing exlcusions
+#removing exlclude_rd1 and creating a round2 exclusions dataframe to work off of.
 round2_exclusion <- dmv_foods_combined %>% 
 filter(exclude_rd1 != "y") %>% 
 distinct(cleaned_names, disbursement_description, exclude_rd1) %>% 
 select(cleaned_names, disbursement_description, exclude_rd1)
 #working with 45,972 records to determine on the basis of disbursement_description
 #These are records to keep in our analysis
-
-
 ```
 
+This codeblock creates a column called exclude_rd2 and populates it with NA values becasue we will label it with y later when we want to exclude something in this round of analysis
 ```{r}
 round2_exclusion <- round2_exclusion %>% 
 mutate(exclude_rd2 = NA) 
@@ -245,9 +244,6 @@ mutate(exclude_rd2 = NA)
 These are exclusions based on disbursement_description.
 They are records that do not get at a personal meal expense or signify personal habits.
 This also has some records of names I may have missed in the initial exclusion process RED TOP CAB was one of those names (line 261, line 265)
-
-OR should this be excluding names based on disbursement discription?
-
 
 Notes
 - Fundraising Event put a Y next to Fogo De Chow which is a steakhouse. This is something I'd want to keep. Would that mean I shouldn't use Fundraising Events in the exclusion? Would it remove just the transactions based on that category?
@@ -475,19 +471,21 @@ exclusion_terms <- c(
 "STAFF HOLIDAY EVENT",
 "DEPOSIT FOR HOLIDAY EVENT",
 "MEMBER HOLIDAY EVENT",
-"EVENT SPONSORSHIP"
+"EVENT SPONSORSHIP",
+"FRANK 01/31: NETWORKING MEAL",
+"DONATION, DAVID WRIGHT CHARITY EVENT"
   )
 ```
 
 Explaination of codeblock:
 
-Creating a column called exlcude_rd2 to show the second round of exclusions. The ifelse() function tells R that if any one of the "exclusion_terms" are in (%in%) disbursement_description OR cleaned_names, put a "y" value in exclude_rd2. It is also checking for partial strings with the str_detect function so that I can label the disbursement_descriptions that only appear a few times so I can get more labels. The two phrases I've seen often are NOT FOR A FEDERAL CANDIDATE and NOT FOR A POLITICAL CANDIDATE. The str_detect function applies the letter y to exlude_rd2 in all cases when those two phrases arppear.
+Creating a column called exlcude_rd2 to show the second round of exclusions. The ifelse() function tells R that if any one of the "exclusion_terms" are in (%in%) disbursement_description OR cleaned_names, put a "y" value in exclude_rd2. It is also checking for partial strings with the str_detect function so that I can label the disbursement_descriptions that only appear a few times so I can get more labels. The two phrases I've seen often are NOT FOR A FEDERAL CANDIDATE and NOT FOR A POLITICAL CANDIDATE and any other terms I add to that line. The str_detect function applies the letter y to exlude_rd2 in all cases when those two phrases appear
 ```{r}
 round2_exclusion <- round2_exclusion %>%
   mutate(exclude_rd2 = ifelse(
     disbursement_description %in% exclusion_terms | 
     cleaned_names %in% exclusion_terms |
-    str_detect(disbursement_description, "NOT FOR A FEDERAL CANDIDATE|NOT FOR A POLITICAL CANDIDATE"),
+    str_detect(disbursement_description, "NOT FOR A FEDERAL CANDIDATE|NOT FOR A POLITICAL CANDIDATE|TICKET"),
     "y",
     NA_character_
   ))
@@ -509,10 +507,7 @@ view(count_descriptions)
 view(round2_exclusion)
 ```
 
-
-
-#next step is to join round2_exclusion back to dmv_foods_combined so that the exclusions are removed from the master set.
-
+next step is to join round2_exclusion back to dmv_foods_combined based on the cleaned_names column so that the exclusions are removed from the master set. OR could I have done the exlusions on the master set?
 
 
 
