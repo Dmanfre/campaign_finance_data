@@ -408,6 +408,18 @@ disbursement_description == "EVENT EXPENSES - VENUE RENTAL AND CATERING" ~ "y",
 disbursement_description == "EVENT PRODUCTION SERVICES" ~ "y",
 disbursement_description == "EVENT SPACE RENTAL AND CATERING" ~ "y",
 disbursement_description == "EVENT TRANSPORTATION" ~ "y",
+disbursement_description == "FAREWELL  EVENT" ~ "y",
+disbursement_description == "FAVORS FOR EVENT" ~ "y",
+disbursement_description == "FEE - FUNDRAISING EVENT" ~ "y",
+disbursement_description == "FOOD - NOT CANDIDATE SPECIFIC - AM EX 6/14" ~ "y",
+disbursement_description == "FUNDRAISING CONSULTING, CATERING & POSTAGE" ~ "y",
+
+
+
+
+
+
+
 
 
 
