@@ -1,8 +1,0 @@
-"0",""
-"0","#ORG has the most with 208,760 transactions. Need to see what types of places make up that entity_type column."
-"0",""
-"0","dmv_foods_combined %>% "
-"0","filter(entity_type == ""ORG"") %>% "
-"0","group_by(recipient_name) %>% "
-"0","summarize(total = sum(disbursement_amount)) %>% "
-"0","arrange(desc(total))"
