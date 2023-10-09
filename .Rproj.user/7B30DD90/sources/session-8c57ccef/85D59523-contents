@@ -267,6 +267,20 @@ Notes
 
 - Do we expel transactions with discriptions that only appear more than X times?
 
+To make it fewer lines I can set it up like this 
+
+# Define a vector of disbursement descriptions and cleaned names to match
+exclusion_terms <- c("terms")
+
+round2_exclusion <- round2_exclusion %>%
+  mutate(exclude_rd2 = ifelse(
+    disbursement_description %in% exclusion_patterns | cleaned_names %in% exclusion_patterns,
+    "y",
+    NA_character_
+  ))
+
+
+
 ```{r}
 #working on exclusions based on disbursement_discription
 #this populates a column called disbursement_exclusion with 
@@ -394,26 +408,6 @@ disbursement_description == "EVENT EXPENSES - VENUE RENTAL AND CATERING" ~ "y",
 disbursement_description == "EVENT PRODUCTION SERVICES" ~ "y",
 disbursement_description == "EVENT SPACE RENTAL AND CATERING" ~ "y",
 disbursement_description == "EVENT TRANSPORTATION" ~ "y",
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-
-
-
 
 
 
