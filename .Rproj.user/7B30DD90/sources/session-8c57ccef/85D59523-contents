@@ -238,7 +238,6 @@ This codeblock creates a column called exclude_rd2 and populates it with NA valu
 ```{r}
 round2_exclusion <- round2_exclusion %>% 
 mutate(exclude_rd2 = NA) 
-
 ```
 
 These are exclusions based on disbursement_description.
@@ -473,7 +472,50 @@ exclusion_terms <- c(
 "MEMBER HOLIDAY EVENT",
 "EVENT SPONSORSHIP",
 "FRANK 01/31: NETWORKING MEAL",
-"DONATION, DAVID WRIGHT CHARITY EVENT"
+"DONATION, DAVID WRIGHT CHARITY EVENT",
+"ATTEND EVENT",
+"REPUBLIC STRATEGIES",
+"DRUCKER LAWHON",
+"THE LEVATINO GROUP",
+"LKJ LLC",
+"PAC EVENT COSTS",
+"TRAVEL & EVENT COSTS",
+"AIRFARE TO CAMPAIGN EVENT",
+"AIRFARE FOR CAMPAIGN EVENTS",
+"EVENT SUPPLIES/AIRFARE",
+"HIGHWOOD CAPITAL LLC",
+"HOOKS SOLUTIONS LLC",
+"KOZLOW GROUP",
+"TOWNSEND GROUP",
+"RED RIVER CO, LLC",
+"PAC EVENT SUPPLIES",
+"BOOKS FOR EVENT",
+"EAA GIFT SHOP",
+"GIFT WRAPS & PARTY RENTALS",
+"GREEN ROOM SPEAKERS",
+"HUMAN RIGHTS CAMPAIGN",
+"REGNERY PUBLISHING",
+"SIDEKICK SPORTSWEAR",
+"YOUNG PROFESSIONALS EVENT 9.15",
+"VTS SUN TAXI - FRED UPTON EVENT",
+"CURB ALEXANDRIA - FRED UPTON EVENT",
+"TUX FOR CAMPAIGN EVENTS",
+"UNITEMIZED VENDORS - SUPPLIES FOR EVENT",
+"UNITY EVENT VENUE",
+"SYNOVATION SOLUTIONS",
+"DOLLAR TREE",
+"IN-KIND - GAS FOR EVENT",
+"HOTEL ROOMS - EVENT GUEST",
+"GRAPHIC DESIGN AND EVENT INVITES",
+"GALA EVENT TICKETS",
+"GALA 2017 EVENT EXPENSE",
+"FUNDRISING EVENT-GD HOSSTED DE",
+"FUNDRAISING: SUPPLIES FOR EVENT",
+"FUNDRAISING: PRINTING FOR EVENTS"
+
+
+
+
   )
 ```
 
@@ -485,7 +527,7 @@ round2_exclusion <- round2_exclusion %>%
   mutate(exclude_rd2 = ifelse(
     disbursement_description %in% exclusion_terms | 
     cleaned_names %in% exclusion_terms |
-    str_detect(disbursement_description, "NOT FOR A FEDERAL CANDIDATE|NOT FOR A POLITICAL CANDIDATE|TICKET"),
+    str_detect(disbursement_description, "NOT FOR A FEDERAL CANDIDATE|NOT FOR A POLITICAL CANDIDATE|TICKET |GIFT |GIFTS "),
     "y",
     NA_character_
   ))
@@ -496,6 +538,16 @@ Seeing how many y values I've included in round 2
 round2_exclusion %>% 
 filter(exclude_rd2 == "y")
 ```
+Note: AYYAS, SHADI is listed as a cleaned_name but his disbursement_descriptions are what he spent the money on. The way this is listed is that it makes it seem like the money WENT to him since cleaned_names are the recipients.
+```{r}
+round2_exclusion %>% 
+filter(cleaned_names == "AYYAS, SHADI")
+#Totals 15 transactions
+
+```
+
+
+
 
 Counting how many times each unique description appears
 ```{r}
@@ -507,7 +559,11 @@ view(count_descriptions)
 view(round2_exclusion)
 ```
 
-next step is to join round2_exclusion back to dmv_foods_combined based on the cleaned_names column so that the exclusions are removed from the master set. OR could I have done the exlusions on the master set?
+
+
+next step is to join round2_exclusion back to dmv_foods_combined based on the cleaned_names column so that the exclusions are removed from the master set. OR could I have done the exlusions on the master set? If I do it like this, everywhere round2_exclusion is a dataframe, I would replace it with dmv_foods_combined.
+
+I believe we did it this way at first to show that they're seperate from each other.
 
 
 
