@@ -511,7 +511,22 @@ exclusion_terms <- c(
 "GALA 2017 EVENT EXPENSE",
 "FUNDRISING EVENT-GD HOSSTED DE",
 "FUNDRAISING: SUPPLIES FOR EVENT",
-"FUNDRAISING: PRINTING FOR EVENTS"
+"FUNDRAISING: PRINTING FOR EVENTS",
+"MR VIDEO AA COMPUTERS",
+"MR. VIDEO",
+"TRAINING EVENT",
+"EVENT SPACE FOR TRAINING EVENT",
+"MEAL EXP. FOR MANAGER/TREASUER  FOR TRAINING WITH NGP & FEC",
+"EVENT PRODUCTION - STICKERS",
+"EVENT PRODUCTION & SITE RENTALS",
+"EVENT COMPANY",
+"CHIC PRODUCTION LLC",
+"RJ WHYTE EVENT PRODUCTION LLC"
+
+
+
+
+
 
 
 
@@ -527,7 +542,7 @@ round2_exclusion <- round2_exclusion %>%
   mutate(exclude_rd2 = ifelse(
     disbursement_description %in% exclusion_terms | 
     cleaned_names %in% exclusion_terms |
-    str_detect(disbursement_description, "NOT FOR A FEDERAL CANDIDATE|NOT FOR A POLITICAL CANDIDATE|TICKET |GIFT |GIFTS "),
+    str_detect(disbursement_description, "NOT FOR A FEDERAL CANDIDATE|NOT FOR A POLITICAL CANDIDATE|TICKET |GIFT |GIFTS |VIDEO|PRODUCTION "),
     "y",
     NA_character_
   ))
