@@ -521,11 +521,12 @@ exclusion_terms <- c(
 "EVENT PRODUCTION & SITE RENTALS",
 "EVENT COMPANY",
 "CHIC PRODUCTION LLC",
-"RJ WHYTE EVENT PRODUCTION LLC"
-
-
-
-
+"RJ WHYTE EVENT PRODUCTION LLC",
+"VISA/EVENT PLANNING",
+"VOID - EVENT",
+"TICKETS TO ATTEND EVENT",
+"STAFFING - EVENT",
+"RENTAL FOR 9/14/22 US SENATE CANDIDATE EVENT"
 
 
 
@@ -542,7 +543,7 @@ round2_exclusion <- round2_exclusion %>%
   mutate(exclude_rd2 = ifelse(
     disbursement_description %in% exclusion_terms | 
     cleaned_names %in% exclusion_terms |
-    str_detect(disbursement_description, "NOT FOR A FEDERAL CANDIDATE|NOT FOR A POLITICAL CANDIDATE|TICKET |GIFT |GIFTS |VIDEO|PRODUCTION "),
+    str_detect(disbursement_description, "NOT FOR A FEDERAL CANDIDATE|NOT FOR A POLITICAL CANDIDATE|TICKET |TICKETS|GIFT |GIFTS |VIDEO|PRODUCTION "),
     "y",
     NA_character_
   ))
@@ -554,15 +555,11 @@ round2_exclusion %>%
 filter(exclude_rd2 == "y")
 ```
 Note: AYYAS, SHADI is listed as a cleaned_name but his disbursement_descriptions are what he spent the money on. The way this is listed is that it makes it seem like the money WENT to him since cleaned_names are the recipients.
+Totals 15 transactions
 ```{r}
 round2_exclusion %>% 
 filter(cleaned_names == "AYYAS, SHADI")
-#Totals 15 transactions
-
 ```
-
-
-
 
 Counting how many times each unique description appears
 ```{r}
